@@ -19,8 +19,7 @@ export function Footer() {
                 <span className="text-xl font-black text-white">B</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl font-bold tracking-tight text-[var(--obsidian)]">Bill Craft</span>
-                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--sky)]">Studio</span>
+                <span className="text-2xl font-bold tracking-tight text-[var(--obsidian)]">Brill Crafts</span>
               </div>
             </div>
             
@@ -56,9 +55,9 @@ export function Footer() {
           <FooterCol title="Contact">
             <div className="space-y-4 pt-1">
               <ContactItem 
-                href="mailto:hello@billcraft.in" 
+                href="mailto:hello@bsillcraftd.in" 
                 icon={<Mail size={16} />} 
-                text="hello@billcraft.in" 
+                text="hello@brillcrafts.in" 
               />
               <ContactItem 
                 href="tel:+9100000000" 
@@ -76,7 +75,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-20 flex flex-col items-center justify-between gap-6 border-t border-[var(--obsidian)]/5 pt-10 md:flex-row">
           <div className="flex items-center gap-2 text-sm font-medium text-[var(--obsidian)]/40">
-            <span>© {currentYear} Bill Craft Studio.</span>
+            <span>© {currentYear} Brill Crafts .</span>
             <span className="hidden md:inline">•</span>
             <span>Crafted with intent in India.</span>
           </div>

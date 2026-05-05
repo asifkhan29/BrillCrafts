@@ -7,7 +7,7 @@ import { PageTransition } from "@/components/PageTransition";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Bill Craft" },
+      { title: "Contact — Brill Crafts" },
       { name: "description", content: "Brief us on your next launch, expo or activation. We respond within one business day." },
     ],
   }),
@@ -32,7 +32,7 @@ function ContactPage() {
               </p>
 
               <div className="mt-10 space-y-4">
-                <ContactRow icon={Mail} label="hello@billcraft.in" />
+                <ContactRow icon={Mail} label="hello@brillcrafts.in" />
                 <ContactRow icon={Phone} label="+91 98765 43210" />
                 <ContactRow icon={MapPin} label="New Delhi · Mumbai · Bengaluru" />
               </div>

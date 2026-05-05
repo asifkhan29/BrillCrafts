@@ -36,6 +36,7 @@ import heroMetro from "@/assets/hero-metro.jpg";
 import caseLaunch from "@/assets/case-launch.jpg";
 import caseExpo from "@/assets/case-expo.jpg";
 import caseMall from "@/assets/case-mall.jpg";
+import { Hero } from "@/components/home/Hero";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -57,6 +58,7 @@ function HomePage() {
       <Hero />
       <Marquee />
       <ServicesPreview />
+      <SecondHero />
       <ReachBand />
       <CaseStudiesPreview />
       <CTA />
@@ -67,47 +69,47 @@ function HomePage() {
 const AZURE = "#1D90FF";
 const OLIVE = "#0074D9"; // keep palette blue-dominant — secondary deep sky blue
 
-function MagneticButton({
-  to,
-  children,
-}: {
-  to: string;
-  children: React.ReactNode;
-}) {
-  const ref = useRef<HTMLAnchorElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 200, damping: 15 });
-  const sy = useSpring(y, { stiffness: 200, damping: 15 });
+// function MagneticButton({
+//   to,
+//   children,
+// }: {
+//   to: string;
+//   children: React.ReactNode;
+// }) {
+//   const ref = useRef<HTMLAnchorElement>(null);
+//   const x = useMotionValue(0);
+//   const y = useMotionValue(0);
+//   const sx = useSpring(x, { stiffness: 200, damping: 15 });
+//   const sy = useSpring(y, { stiffness: 200, damping: 15 });
 
-  const onMove = (e: React.MouseEvent) => {
-    const r = ref.current?.getBoundingClientRect();
-    if (!r) return;
-    x.set((e.clientX - r.left - r.width / 2) * 0.35);
-    y.set((e.clientY - r.top - r.height / 2) * 0.35);
-  };
-  const onLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
+//   const onMove = (e: React.MouseEvent) => {
+//     const r = ref.current?.getBoundingClientRect();
+//     if (!r) return;
+//     x.set((e.clientX - r.left - r.width / 2) * 0.35);
+//     y.set((e.clientY - r.top - r.height / 2) * 0.35);
+//   };
+//   const onLeave = () => {
+//     x.set(0);
+//     y.set(0);
+//   };
 
-  return (
-    <motion.div
-      style={{ x: sx, y: sy }}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-    >
-      <Link
-        ref={ref}
-        to={to}
-        className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold text-white shadow-[0_18px_40px_-12px_rgba(29,144,255,0.55)] group"
-        style={{ background: `linear-gradient(135deg, ${AZURE}, ${OLIVE})` }}
-      >
-        {children}
-      </Link>
-    </motion.div>
-  );
-}
+//   return (
+//     <motion.div
+//       style={{ x: sx, y: sy }}
+//       onMouseMove={onMove}
+//       onMouseLeave={onLeave}
+//     >
+//       <Link
+//         ref={ref}
+//         to={to}
+//         className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold text-white shadow-[0_18px_40px_-12px_rgba(29,144,255,0.55)] group"
+//         style={{ background: `linear-gradient(135deg, ${AZURE}, ${OLIVE})` }}
+//       >
+//         {children}
+//       </Link>
+//     </motion.div>
+//   );
+// }
 
 function PhonePortal() {
   const phoneImages = [caseLaunch, caseExpo, caseMall];
@@ -245,297 +247,72 @@ function PhonePortal() {
   );
 }
 
-function Hero() {
+function SecondHero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end start"],
+    offset: ["start end", "end start"], // Adjusted for mid-page visibility
   });
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const phoneY = useTransform(scrollYProgress, [0, 1], [0, -180]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.25]);
-  const glowScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.25, 1]);
 
-  const mx = useMotionValue(-400);
-  const my = useMotionValue(-400);
-  const smx = useSpring(mx, { stiffness: 120, damping: 18, mass: 0.6 });
-  const smy = useSpring(my, { stiffness: 120, damping: 18, mass: 0.6 });
-
-  const onMouseMove = (e: React.MouseEvent) => {
-    const r = ref.current?.getBoundingClientRect();
-    if (!r) return;
-    mx.set(e.clientX - r.left);
-    my.set(e.clientY - r.top);
-  };
-  const onMouseLeave = () => {
-    mx.set(-400);
-    my.set(-400);
-  };
-
-  const headlineWords = ["Where", "Digital", "Ambition", "Meets", "Physical"];
+  const phoneY = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
     <section
       ref={ref}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      className="relative min-h-[94vh] flex items-center overflow-hidden"
+      className="relative min-h-[80vh] flex items-center py-24 overflow-hidden bg-slate-50/50"
     >
-      {/* Cursor-following glow - increased intensity */}
-      <motion.div
-        aria-hidden
-        style={{
-          x: smx,
-          y: smy,
-          translateX: "-50%",
-          translateY: "-50%",
-          background: `radial-gradient(circle, ${AZURE}88 0%, ${AZURE}33 35%, transparent 70%)`,
-        }}
-        className="pointer-events-none absolute top-0 left-0 h-[420px] w-[420px] rounded-full blur-3xl z-0"
-      />
-
-      {/* Background image with parallax - Updated with Metro, Cinema, Bus */}
-      <motion.div style={{ y: y1, opacity }} className="absolute inset-0 -z-10">
-        <img
-          src={caseMall}
-          alt="Bill Craft brand activation landscape including metro, cinema, and bus branding"
-          className="h-full w-full object-cover opacity-30" // slightly increased opacity
-          width={1920}
-          height={1080}
-        />
-        {/* Gradient overlay - keeping base color as requested */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/55 via-white/75 to-[color-mix(in_oklab,var(--ice)_60%,white)]" />
-      </motion.div>
-
-      {/* Olive + Azure orbs - Increased Intensity and size for more glow */}
-      <motion.div
-        animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none absolute -top-24 -left-24 h-[500px] w-[500px] rounded-full"
-        aria-hidden
-      >
-        <div
-          className="h-full w-full rounded-full blur-[100px]"
-          style={{ background: `${OLIVE}66` }}
-        />
-      </motion.div>
-      <motion.div
-        animate={{ x: [0, -50, 0], y: [0, 40, 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-        style={{ y: y2 }}
-        className="pointer-events-none absolute -bottom-24 -right-24 h-[560px] w-[560px] rounded-full"
-        aria-hidden
-      >
-        <div
-          className="h-full w-full rounded-full blur-[100px]"
-          style={{ background: `${AZURE}66` }}
-        />
-      </motion.div>
-
-      {/* Subtle grid */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
-        style={{
-          backgroundImage:
-            "linear-gradient(var(--obsidian) 1px, transparent 1px), linear-gradient(90deg, var(--obsidian) 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
-          maskImage:
-            "radial-gradient(ellipse at center, black 40%, transparent 75%)",
-        }}
-      />
-
-      <div className="relative mx-auto max-w-7xl px-6 py-20 grid lg:grid-cols-[1.25fr_1fr] gap-12 items-center w-full">
-        {/* Smartphone Portal - Moved up in DOM for mobile first, removed lg:block */}
+      <div className="relative mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-16 items-center w-full">
+        {/* LEFT SIDE: Smartphone Portal (First on Mobile & Desktop) */}
         <motion.div
-          style={{ y: phoneY, scale: glowScale }}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative order-first lg:order-last mt-12 lg:mt-0"
+          style={{ y: phoneY, opacity }}
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative order-first"
         >
           <PhonePortal />
         </motion.div>
 
-        {/* LEFT — copy */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col items-center text-center lg:items-start lg:text-left"
-        >
-          <motion.span
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1, duration: 0.6 }}
-            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium tracking-widest uppercase backdrop-blur-2xl bg-white/5 border border-white/40 text-[var(--obsidian)]/80 shadow-sm"
+        {/* RIGHT SIDE: Minimal Content */}
+        <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="space-y-6"
           >
-            <span className="relative flex h-2 w-2">
-              <span
-                className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
-                style={{ background: OLIVE }}
-              />
-              <span
-                className="relative inline-flex h-2 w-2 rounded-full"
-                style={{ background: OLIVE }}
-              />
-            </span>
-            Future-Offline · Real-World Dominance
-          </motion.span>
-
-          <h1 className="mt-7 text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-[var(--obsidian)]">
-            {headlineWords.map((w, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: 0.15 + i * 0.07,
-                  duration: 0.7,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="inline-block mr-3"
-              >
-                {w}
-              </motion.span>
-            ))}
-            <motion.span
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.15 + headlineWords.length * 0.07,
-                duration: 0.7,
-              }}
-              className="inline-block mr-3"
-            >
-              Impact
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.15 + (headlineWords.length + 1) * 0.07,
-                duration: 0.7,
-              }}
-              className="inline-block"
+            <span
+              className="text-xs font-bold uppercase tracking-[0.3em]"
               style={{ color: AZURE }}
             >
-              .
-            </motion.span>
-          </h1>
-          <h1 className="sr-only">
-            Where Digital Ambition Meets Physical Impact.
-          </h1>
+              The Portal
+            </span>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.7 }}
-            className="mt-6 max-w-2xl text-lg text-[var(--obsidian)]/70 leading-relaxed"
-          >
-            Bill Craft dominates the offline landscape.{" "}
-            <strong className="text-[var(--obsidian)]">
-              1000+ Malls. 500+ Corporate Parks. 1000+ RWAs.
-            </strong>{" "}
-            One unified execution engine.
-          </motion.p>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-[var(--obsidian)]">
+              Digital Experience. <br />
+              <span className="opacity-40">Real-World Scale.</span>
+            </h2>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.85, duration: 0.7 }}
-            className="mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-4"
-          >
-            <MagneticButton to="/contact">
-              Start a project
-              <ArrowUpRight size={18} />
-            </MagneticButton>
-            <Link to="/services" className="btn-ghost">
-              Explore services
+            <p className="max-w-md text-lg text-[var(--obsidian)]/60 leading-relaxed">
+              Seamlessly bridge the gap between high-intent digital users and
+              physical brand interactions.
+            </p>
+
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-2 font-bold group"
+            >
+              See how it works
+              <ArrowRight
+                size={20}
+                className="transition-transform group-hover:translate-x-1"
+              />
             </Link>
           </motion.div>
-
-          {/* Service chip pills with 3D rotateX entrance */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="mt-10 flex flex-wrap gap-2 justify-center lg:justify-start [perspective:800px]"
-          >
-            {[
-              { i: Megaphone, t: "Launches" },
-              { i: Store, t: "Retail Branding" },
-              { i: Users, t: "Sampling" },
-              { i: Package, t: "Production" },
-            ].map(({ i: Icon, t }, idx) => (
-              <motion.span
-                key={t}
-                whileHover={{ y: -3, scale: 1.05 }}
-                initial={{ opacity: 0, y: 14, rotateX: -60 }}
-                animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                transition={{
-                  delay: 1.05 + idx * 0.1,
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 14,
-                }}
-                className="inline-flex items-center gap-2 rounded-full backdrop-blur-2xl bg-white/5 border border-white/40 px-3 py-1.5 text-xs font-medium text-[var(--obsidian)]/85 shadow-sm"
-              >
-                <Icon size={13} style={{ color: AZURE }} />
-                {t}
-              </motion.span>
-            ))}
-          </motion.div>
-
-          <div className="mt-12 grid grid-cols-3 max-w-xl gap-8 w-full">
-            {[
-              { v: 1000, s: "+", l: "RWAs activated" },
-              { v: 500, s: "+", l: "Corporate parks" },
-              { v: 1000, s: "+", l: "Malls reached" },
-            ].map((x, i) => (
-              <motion.div
-                key={x.l}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.1 + i * 0.1, duration: 0.7 }}
-              >
-                <p
-                  className="text-2xl md:text-3xl font-bold"
-                  style={{
-                    background: `linear-gradient(135deg, ${AZURE}, ${OLIVE})`,
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  <Counter to={x.v} suffix={x.s} />
-                </p>
-                <p className="mt-1 text-xs uppercase tracking-widest text-[var(--obsidian)]/55">
-                  {x.l}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        </div>
       </div>
-
-      {/* Scroll cue */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--obsidian)]/50"
-      >
-        <span className="text-[10px] uppercase tracking-widest">Scroll</span>
-        <motion.span
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-          className="block h-8 w-[2px] rounded-full"
-          style={{
-            background: `linear-gradient(to bottom, ${AZURE}, transparent)`,
-          }}
-        />
-      </motion.div>
     </section>
   );
 }
@@ -565,7 +342,6 @@ function Marquee() {
     </section>
   );
 }
-
 
 // Mapping icons to your pillars for that "Modern Studio" feel
 const iconMap: Record<string, any> = {
@@ -600,15 +376,21 @@ export function ServicesPreview() {
             }
             desc="The bridge between a digital concept and a physical reality."
           />
-          <Link to="/services" className="group mb-2 hidden text-sm font-bold uppercase tracking-widest text-[var(--sky)] md:block">
-            View Expertise <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+          <Link
+            to="/services"
+            className="group mb-2 hidden text-sm font-bold uppercase tracking-widest text-[var(--sky)] md:block"
+          >
+            View Expertise{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-1">
+              →
+            </span>
           </Link>
         </div>
 
         <div className="mt-20 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((s, i) => {
             const Icon = iconMap[s.category] || Zap;
-            
+
             // LOGIC: Insert advertisement images at specific intervals
             // We'll show an "Ad" card after the 2nd and 5th service card
             const showAd = i === 2 || i === 5;
@@ -632,16 +414,27 @@ export function ServicesPreview() {
                       <div className="rounded-2xl bg-[var(--obsidian)]/5 p-3 text-[var(--obsidian)] group-hover:bg-[var(--sky)] group-hover:text-white transition-colors">
                         <Icon size={22} />
                       </div>
-                      <ArrowUpRight size={20} className="text-[var(--obsidian)]/20 transition-all group-hover:text-[var(--sky)] group-hover:translate-x-1 group-hover:-translate-y-1" />
+                      <ArrowUpRight
+                        size={20}
+                        className="text-[var(--obsidian)]/20 transition-all group-hover:text-[var(--sky)] group-hover:translate-x-1 group-hover:-translate-y-1"
+                      />
                     </div>
 
                     <div className="mt-8">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--sky)]">{s.category}</p>
-                      <h3 className="mt-2 text-xl font-bold tracking-tight text-[var(--obsidian)]">{s.title}</h3>
-                      <p className="mt-3 line-clamp-2 text-sm text-[var(--obsidian)]/50">{s.desc}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--sky)]">
+                        {s.category}
+                      </p>
+                      <h3 className="mt-2 text-xl font-bold tracking-tight text-[var(--obsidian)]">
+                        {s.title}
+                      </h3>
+                      <p className="mt-3 line-clamp-2 text-sm text-[var(--obsidian)]/50">
+                        {s.desc}
+                      </p>
                     </div>
 
-                    <span className="absolute bottom-6 right-8 text-5xl font-black text-[var(--obsidian)]/[0.03] italic">0{i + 1}</span>
+                    <span className="absolute bottom-6 right-8 text-5xl font-black text-[var(--obsidian)]/[0.03] italic">
+                      0{i + 1}
+                    </span>
                   </Link>
                 </motion.div>
 
@@ -653,17 +446,27 @@ export function ServicesPreview() {
                     className="col-span-1 lg:col-span-2 relative overflow-hidden rounded-[2rem] bg-[var(--obsidian)] group cursor-pointer"
                   >
                     {/* Placeholder for your actual project image/video */}
-                    <img 
-                      src={i === 2 ? "/api/placeholder/800/400" : "/api/placeholder/801/400"} 
+                    <img
+                      src={
+                        i === 2
+                          ? "https://i.extremetech.com/imagery/content-types/01X34i9oHzZc7wTmRtY6OqC/hero-image.fill.size_1200x675.jpg"
+                          : "https://drivingmotion.com/wp-content/uploads/2023/06/2.-The-newly-unveiled-Mercedes-AMG-EQS-53-4MATIC-and-Mercedes-AMG-EQE-53-4MATIC-taking-center-stage-at-MBFWKL.jpg"
+                      }
                       alt="Project Showcase"
                       className="h-full w-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[var(--obsidian)] via-transparent to-transparent" />
-                    
+
                     <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
                       <div>
-                        <span className="rounded-full bg-[var(--parrot)] px-3 py-1 text-[10px] font-bold uppercase text-[var(--obsidian)]">Featured Work</span>
-                        <h4 className="mt-2 text-lg font-bold text-white">{i === 2 ? "Samsung Galaxy Launch" : "Mercedes Expo Arena"}</h4>
+                        <span className="rounded-full bg-[var(--parrot)] px-3 py-1 text-[10px] font-bold uppercase text-[var(--obsidian)]">
+                          Featured Work
+                        </span>
+                        <h4 className="mt-2 text-lg font-bold text-white">
+                          {i === 2
+                            ? "Samsung Galaxy Launch"
+                            : "Mercedes Expo Arena"}
+                        </h4>
                       </div>
                       <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-md text-white transition-transform group-hover:scale-110">
                         <Play size={20} fill="currentColor" />
@@ -696,22 +499,22 @@ export function ReachBand() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="relative overflow-hidden rounded-[2.5rem] border border-[var(--obsidian)]/5 bg-white/40 p-8 md:p-16 backdrop-blur-xl shadow-2xl shadow-[var(--sky)]/5">
-          
           {/* Subtle Glows */}
           <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-[var(--sky)]/10 blur-[80px]" />
           <div className="absolute -right-20 -bottom-20 h-64 w-64 rounded-full bg-[var(--parrot)]/10 blur-[80px]" />
 
           <div className="relative z-10 flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
             <div className="max-w-2xl">
-              <motion.span 
+              <motion.span
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 className="inline-flex items-center gap-2 rounded-full bg-[var(--sky)]/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--sky)]"
               >
-                <Globe2 size={14} className="animate-pulse" /> Network Intelligence
+                <Globe2 size={14} className="animate-pulse" /> Network
+                Intelligence
               </motion.span>
-              
-              <motion.h2 
+
+              <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
@@ -722,10 +525,10 @@ export function ReachBand() {
                   moves markets.
                 </span>
               </motion.h2>
-              
+
               <p className="mt-6 max-w-lg text-lg text-[var(--obsidian)]/60 leading-relaxed">
-                Strategic placements across India's most high-intent zones. 
-                From premium residential clusters to high-traffic retail corridors.
+                Strategic placements across India's most high-intent zones. From
+                premium residential clusters to high-traffic retail corridors.
               </p>
             </div>
 
@@ -734,12 +537,15 @@ export function ReachBand() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <Link 
-                to="/reach" 
+              <Link
+                to="/reach"
                 className="group flex items-center gap-3 rounded-2xl bg-[var(--obsidian)] px-8 py-4 text-sm font-bold text-white transition-all hover:bg-[var(--sky)] hover:shadow-xl hover:shadow-[var(--sky)]/20 active:scale-95"
               >
                 Explore Full Reach
-                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                <ArrowRight
+                  size={18}
+                  className="transition-transform group-hover:translate-x-1"
+                />
               </Link>
             </motion.div>
           </div>
@@ -759,7 +565,7 @@ export function ReachBand() {
                   <div className="mb-2 rounded-xl bg-[var(--sky)]/5 p-3 text-[var(--sky)] transition-colors group-hover:bg-[var(--sky)] group-hover:text-white">
                     <s.icon size={24} strokeWidth={1.5} />
                   </div>
-                  
+
                   <div>
                     <p className="text-3xl font-black tracking-tighter text-[var(--obsidian)] md:text-4xl">
                       {/* Assuming Counter component exists, otherwise use s.value */}
@@ -782,14 +588,19 @@ export function ReachBand() {
 // Simple internal helper if you don't have a Counter component
 function Counter({ to, suffix }: { to: number; suffix: string }) {
   // Replace this with your actual Counter component logic
-  return <>{to}{suffix}</>;
+  return (
+    <>
+      {to}
+      {suffix}
+    </>
+  );
 }
 
 const cases = [
   {
     title: "Pan-India Metro Takeover",
     client: "FMCG Beverage Brand",
-    img: "heroMetro", // Replace with actual imports
+    img: "https://media.assettype.com/freepressjournal/2025-10-29/uem5shrv/Mumbai-Metro-3.jpg",
     tag: "Out-of-Home",
     metric: "12M+ Impressions",
     icon: BarChart3,
@@ -798,7 +609,7 @@ const cases = [
   {
     title: "Cinematic Product Launch",
     client: "Consumer Tech",
-    img: "caseLaunch",
+    img: "https://i.ytimg.com/vi/iXOEE-Kn3jw/maxresdefault.jpg",
     tag: "Brand Launch",
     metric: "38% Press Coverage",
     icon: Users,
@@ -807,7 +618,7 @@ const cases = [
   {
     title: "Pavilion Expo Stall",
     client: "B2B Industrial",
-    img: "caseExpo",
+    img: "https://xs-worldwide.com/wp-content/uploads/2024/07/6th-pic-1920x1440.jpg",
     tag: "Expo Excellence",
     metric: "Ranked #1 Footfall",
     icon: Target,
@@ -816,7 +627,7 @@ const cases = [
   {
     title: "Mall Storefront Rollout",
     client: "D2C Lifestyle",
-    img: "caseMall",
+    img: "https://s3.mortarr.com/images/project_gallery_images/architecture-design-collaborative-mall-storefront-design-1920x1920.jpeg",
     tag: "Retail Identity",
     metric: "42 Stores Live",
     icon: TrendingUp,
@@ -844,9 +655,15 @@ export function CaseStudiesPreview() {
             }
             desc="Real briefs, real metrics — a snapshot of how we architect physical brand experiences."
           />
-          <Link to="/case-studies" className="hidden md:flex items-center gap-2 font-bold text-sm uppercase tracking-widest text-[var(--obsidian)] group">
+          <Link
+            to="/case-studies"
+            className="hidden md:flex items-center gap-2 font-bold text-sm uppercase tracking-widest text-[var(--obsidian)] group"
+          >
             Explore Portfolio
-            <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+            <ArrowUpRight
+              size={18}
+              className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+            />
           </Link>
         </div>
 
@@ -857,7 +674,11 @@ export function CaseStudiesPreview() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                duration: 0.8,
+                delay: i * 0.1,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className="group relative flex flex-col rounded-[2.5rem] bg-white border border-[var(--obsidian)]/5 overflow-hidden transition-all hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] hover:border-[var(--sky)]/20"
             >
               {/* Image Container */}
@@ -868,7 +689,7 @@ export function CaseStudiesPreview() {
                   className="h-full w-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--obsidian)]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
+
                 {/* Floating Tag */}
                 <div className="absolute top-6 left-6 flex items-center gap-2 rounded-full bg-white/90 backdrop-blur-md px-4 py-1.5 shadow-sm">
                   <div className="h-1.5 w-1.5 rounded-full bg-[var(--sky)] animate-pulse" />
@@ -919,7 +740,10 @@ export function CaseStudiesPreview() {
 
         {/* Mobile View All Link */}
         <div className="mt-12 md:hidden flex justify-center">
-          <Link to="/case-studies" className="btn-magnetic w-full py-4 text-center">
+          <Link
+            to="/case-studies"
+            className="btn-magnetic w-full py-4 text-center"
+          >
             View All Work
           </Link>
         </div>
@@ -930,69 +754,62 @@ export function CaseStudiesPreview() {
 
 export function CTA() {
   return (
-    <section className="relative py-32 overflow-hidden">
-      {/* Dynamic Background Spotlight */}
-      <div className="absolute inset-0 -z-10 bg-[var(--ice)]/20" />
-      <div className="absolute left-1/2 top-1/2 -z-10 h-[600px] w-[1000px] -translate-x-1/2 -translate-y-1/2 rounded-[100%] bg-gradient-to-r from-[var(--sky)]/20 to-[var(--parrot)]/20 blur-[120px] opacity-50" />
+    <section className="relative py-24 overflow-hidden">
+      {/* Soft Background Orbs */}
+      <div className="absolute left-1/2 top-1/2 -z-10 h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-[var(--sky)]/10 to-[var(--parrot)]/10 blur-[120px]" />
 
       <div className="mx-auto max-w-5xl px-6">
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative overflow-hidden rounded-[3rem] bg-[var(--obsidian)] px-8 py-20 text-center md:px-20 md:py-28 shadow-[0_40px_100px_-20px_rgba(15,42,90,0.3)]"
+          className="relative overflow-hidden rounded-[3rem] border border-white/40 bg-white/60 px-8 py-16 text-center backdrop-blur-xl shadow-2xl shadow-[var(--sky)]/5 md:px-20 md:py-20"
         >
-          {/* Decorative Corner Glows */}
-          <div className="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-[var(--sky)] opacity-20 blur-3xl" />
-          <div className="absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-[var(--parrot)] opacity-20 blur-3xl" />
-
-          {/* Floating Icon Decor */}
-          <motion.div 
-            animate={{ y: [0, -10, 0] }}
+          <motion.div
+            animate={{ y: [0, -8, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 text-[var(--parrot)] backdrop-blur-sm border border-white/10 mb-8"
+            className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--sky)]/10 text-[var(--sky)] mb-6"
           >
-            <Zap size={32} fill="currentColor" />
+            <Zap size={28} fill="currentColor" />
           </motion.div>
 
-          <h2 className="text-4xl font-bold tracking-tight text-white md:text-7xl">
+          <h2 className="text-4xl font-bold tracking-tight text-[var(--obsidian)] md:text-6xl">
             Let's build the <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--sky)] to-[var(--parrot)]">
               unforgettable.
             </span>
           </h2>
 
-          <p className="mx-auto mt-8 max-w-xl text-lg text-white/60 leading-relaxed">
-            From single-city activations to pan-India rollouts — bring the 
+          <p className="mx-auto mt-6 max-w-lg text-lg text-[var(--obsidian)]/60">
+            From single-city activations to pan-India rollouts—bring the
             ambition, we'll engineer the physical reality.
           </p>
 
-          <div className="mt-12 flex flex-col items-center justify-center gap-6">
+          <div className="mt-10 flex flex-col items-center gap-6">
             <Link
               to="/contact"
-              className="group relative flex items-center gap-3 overflow-hidden rounded-full bg-white px-10 py-5 text-lg font-bold text-[var(--obsidian)] transition-all hover:scale-105 hover:bg-[var(--sky)] hover:text-white active:scale-95 shadow-xl shadow-white/5"
+              className="group flex items-center gap-2 rounded-full bg-[var(--obsidian)] px-10 py-4 text-lg font-bold text-white transition-all hover:scale-105 hover:shadow-xl hover:shadow-[var(--sky)]/20 active:scale-95"
             >
               Start a Project
-              <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
+              <ArrowRight
+                size={20}
+                className="transition-transform group-hover:translate-x-1"
+              />
             </Link>
 
-            {/* Credibility Note */}
-            <div className="flex items-center gap-4 text-sm font-medium text-white/40">
+            <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-[var(--obsidian)]/40">
               <span className="flex items-center gap-1.5">
-                <Send size={14} className="text-[var(--parrot)]" /> 
-                Typical response: 2 hours
+                <Send size={14} /> 2hr Response
               </span>
-              <span className="h-4 w-px bg-white/10" />
+              <span className="h-3 w-px bg-[var(--obsidian)]/10" />
               <span className="flex items-center gap-1.5">
-                <Sparkles size={14} className="text-[var(--sky)]" /> 
-                India-wide execution
+                <Sparkles size={14} /> India-Wide
               </span>
             </div>
           </div>
 
-          {/* Abstract Grid Pattern Overlay */}
-          <div className="absolute inset-0 -z-10 opacity-10 [mask-image:radial-gradient(ellipse_at_center,black,transparent)] bg-[grid-line:white] [background-size:30px_30px]" />
+          {/* Clean Grid Overlay */}
+          <div className="absolute inset-0 -z-10 opacity-[0.03] [mask-image:radial-gradient(ellipse_at_center,black,transparent)] bg-[grid-line:var(--obsidian)] [background-size:30px_30px]" />
         </motion.div>
       </div>
     </section>

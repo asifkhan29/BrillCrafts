@@ -43,9 +43,7 @@ export function Navbar() {
           <Link to="/" className="group flex items-center gap-3 outline-none">
             <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--obsidian)] text-white font-black transition-transform group-hover:rotate-[10deg]">B</div>
             <div className="flex flex-col leading-tight">
-              <span className="font-bold text-[var(--obsidian)]">Bill Craft</span>
-              <span className="text-[10px] uppercase tracking-widest text-[var(--sky)]">Agency</span>
-            </div>
+              <span className="font-bold text-[var(--obsidian)]">Brill Crafts</span>            </div>
           </Link>
 
           {/* Desktop Nav Items */}
