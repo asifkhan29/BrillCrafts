@@ -111,7 +111,12 @@
     color: var(--obsidian);
   }
 }
-
+body {
+  overflow-x: hidden;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
 @layer components {
   .glass {
     background: color-mix(in oklab, white 70%, transparent);
@@ -224,4 +229,208 @@
 
 .animate-marquee {
   animation: marquee 18s linear infinite;
+}
+/* ========================= */
+/* ROTATING BRAND ORBITS */
+/* ========================= */
+
+@keyframes rotateSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateReverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.orbit-1 {
+  animation: rotateSlow 25s linear infinite;
+}
+
+.orbit-2 {
+  animation: rotateReverse 35s linear infinite;
+}
+
+/* ========================= */
+/* WRAPPER */
+/* ========================= */
+
+.brand-orbit-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-top: 5rem;
+}
+
+.brand-orbit-glow {
+  position: absolute;
+  height: 500px;
+  width: 500px;
+  background: rgba(59, 130, 246, 0.1);
+  filter: blur(120px);
+  border-radius: 9999px;
+}
+
+/* ========================= */
+/* MAIN CIRCLE */
+/* ========================= */
+
+.brand-orbit-container {
+  position: relative;
+  height: 520px;
+  width: 520px;
+}
+
+@media (min-width: 640px) {
+  .brand-orbit-container {
+    height: 650px;
+    width: 650px;
+  }
+}
+
+/* ========================= */
+/* CENTER CONTENT */
+/* ========================= */
+
+.brand-center-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 170px;
+  width: 170px;
+  border-radius: 9999px;
+  background: #0f172a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 20;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .brand-center-card {
+    height: 220px;
+    width: 220px;
+  }
+}
+
+.brand-center-card h3 {
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
+.brand-center-card p {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ========================= */
+/* ORBIT */
+/* ========================= */
+
+.brand-orbit {
+  position: absolute;
+  inset: 0;
+}
+
+/* ========================= */
+/* LOGO CARD */
+/* ========================= */
+
+.brand-logo-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5rem;
+  background: white;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.brand-logo-card:hover {
+  transform: scale(1.08) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* ========================= */
+/* FIRST ORBIT LOGOS */
+/* ========================= */
+
+.brand-logo-large {
+  height: 85px;
+  width: 85px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+@media (min-width: 640px) {
+  .brand-logo-large {
+    height: 110px;
+    width: 110px;
+  }
+}
+
+/* ========================= */
+/* SECOND ORBIT LOGOS */
+/* ========================= */
+
+.brand-logo-small {
+  height: 75px;
+  width: 75px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 640px) {
+  .brand-logo-small {
+    height: 95px;
+    width: 95px;
+  }
+}
+
+/* ========================= */
+/* IMAGE */
+/* ========================= */
+
+.brand-logo-image {
+  width: auto;
+  object-fit: contain;
+}
+
+.brand-logo-large .brand-logo-image {
+  height: 2rem;
+}
+
+.brand-logo-small .brand-logo-image {
+  height: 1.8rem;
+}
+
+@media (min-width: 640px) {
+  .brand-logo-large .brand-logo-image {
+    height: 2.5rem;
+  }
+
+  .brand-logo-small .brand-logo-image {
+    height: 2.2rem;
+  }
 }

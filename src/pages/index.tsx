@@ -50,7 +50,7 @@ export function HomePage() {
       <Hero />
       <Marquee />
       <ServicesPreview />
-      <SecondHero />
+            <SecondHero />
       <ReachBand />
       <CaseStudiesPreview />
       <TrustedBrandsPage />
