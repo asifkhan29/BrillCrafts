@@ -42,6 +42,8 @@ import { Hero } from "@/components/home/Hero";
 import { Link } from "react-router-dom";
 import React from "react";
 import BackgroundEffects from "./BackgroundEffects";
+import { OrbitalGallery } from "@/components/OrbitalGallery";
+import { ProductSlider } from "@/components/home/ProductSlider";
 
 
 export function HomePage() {
@@ -50,6 +52,9 @@ export function HomePage() {
       <Hero />
       <Marquee />
       <ServicesPreview />
+
+      <OrbitalGallery/>
+      <ProductSlider/>
       <SecondHero />
       <ReachBand />
       <CaseStudiesPreview />
