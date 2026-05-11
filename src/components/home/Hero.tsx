@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { VenuePortal } from "./VenuePortal";
 import { TransitBackground } from "./TransitBackground";
+import { Link } from "react-router-dom";
 
 function MagneticButton({
   children,
@@ -100,7 +101,7 @@ export function Hero() {
   const smy = useSpring(my, { stiffness: 120, damping: 18 });
   const cursorBg = useMotionTemplate`radial-gradient(420px circle at ${smx}px ${smy}px, rgba(56,189,248,0.22), transparent 60%)`;
 
-  const headlineWords = ["Where", "Digital", "Ambition", "Meets", "Physical"];
+  const headlineWords = ["Where", "On-Ground", "Execution", "Creates"];
 
   return (
     <section
@@ -182,13 +183,22 @@ export function Hero() {
             <VenuePortal />
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <MagneticButton primary>
-              Start a project
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </MagneticButton>
-            <MagneticButton>Explore services</MagneticButton>
-          </div>
+         <div className="mt-8 flex flex-wrap gap-3">
+
+  <MagneticButton primary asChild>
+    <Link to="/contact" className="inline-flex items-center gap-2">
+      Start a project
+      <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+    </Link>
+  </MagneticButton>
+
+  <MagneticButton asChild>
+    <Link to="/services">
+      Explore services
+    </Link>
+  </MagneticButton>
+
+</div>
 
           <div className="mt-8 flex flex-wrap gap-2">
             {[

@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { PageTransition } from "@/components/PageTransition";
 import { SectionHeader } from "./index";
@@ -7,15 +6,7 @@ import caseLaunch from "@/assets/case-launch.jpg";
 import caseExpo from "@/assets/case-expo.jpg";
 import caseMall from "@/assets/case-mall.jpg";
 
-export const Route = createFileRoute("/case-studies")({
-  head: () => ({
-    meta: [
-      { title: "Case Studies — Bill Craft" },
-      { name: "description", content: "Selected brand activation work — launches, expo stalls, retail and out-of-home takeovers." },
-    ],
-  }),
-  component: CaseStudiesPage,
-});
+
 
 const items = [
   { title: "Metro Takeover", tag: "Out-of-Home", img: heroMetro, span: "lg:col-span-2 lg:row-span-2" },
@@ -26,7 +17,7 @@ const items = [
   { title: "Premium Packaging", tag: "Production", img: caseExpo, span: "" },
 ];
 
-function CaseStudiesPage() {
+export function CaseStudiesPage() {
   return (
     <PageTransition>
       <section className="py-20">

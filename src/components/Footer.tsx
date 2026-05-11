@@ -1,17 +1,17 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { ArrowUpRight, Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-32 overflow-hidden bg-[var(--ice)]/30 pt-20">
+    <footer className="relative  overflow-hidden bg-[var(--ice)]/30 pt-20">
       {/* Decorative Background Element */}
       <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-gradient-to-br from-[var(--sky)]/10 to-[var(--parrot)]/10 blur-3xl" />
-      
+
       <div className="mx-auto max-w-7xl px-6 pb-12">
         <div className="grid gap-16 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
-          
+
           {/* Brand Section */}
           <div className="space-y-8">
             <div className="flex items-center gap-3">
@@ -22,9 +22,9 @@ export function Footer() {
                 <span className="text-2xl font-bold tracking-tight text-[var(--obsidian)]">Brill Crafts</span>
               </div>
             </div>
-            
+
             <p className="max-w-xs text-base leading-relaxed text-[var(--obsidian)]/60">
-              A brand activation studio crafting high-impact retail branding, expo stalls, 
+              A brand activation studio crafting high-impact retail branding, expo stalls,
               and on-ground campaigns that move the needle.
             </p>
 
@@ -49,27 +49,47 @@ export function Footer() {
             <FooterLink to="/services/brand-launches">Brand Launches</FooterLink>
             <FooterLink to="/services/expo-stalls">Expo Design</FooterLink>
             <FooterLink to="/services/retail-branding">Retail ID</FooterLink>
-            <FooterLink to="/services/activations">On-Ground</FooterLink>
+            <FooterLink to="/services/rwa-corporate">On-Ground</FooterLink>
           </FooterCol>
 
-          <FooterCol title="Contact">
-            <div className="space-y-4 pt-1">
-              <ContactItem 
-                href="mailto:hello@bsillcraftd.in" 
-                icon={<Mail size={16} />} 
-                text="hello@brillcrafts.in" 
-              />
-              <ContactItem 
-                href="tel:+9100000000" 
-                icon={<Phone size={16} />} 
-                text="+91 98765 43210" 
-              />
-              <div className="flex gap-4 pt-2">
-                <SocialCircle href="#" icon={<Instagram size={18} />} />
-                <SocialCircle href="#" icon={<Linkedin size={18} />} />
-              </div>
-            </div>
-          </FooterCol>
+       {/* CONTACT */}
+<FooterCol title="Contact">
+  <div className="space-y-4 pt-1">
+
+    <ContactItem
+      href="mailto:nafis@brillcrafts.in"
+      icon={<Mail size={16} />}
+      text="nafis@brillcrafts.in"
+    />
+
+    <ContactItem
+      href="tel:+917506839909"
+      icon={<Phone size={16} />}
+      text="+91 75068 39909"
+    />
+
+    <ContactItem
+      href="https://maps.app.goo.gl/XJfp8SSMQLY47gCE9"
+      icon={<MapPin size={16} />}
+      text="Sakinaka, Andheri East, Mumbai"
+    />
+
+    {/* SOCIAL LINKS */}
+    <div className="flex gap-4 pt-2">
+
+      <SocialCircle
+        href="https://www.instagram.com/brillcrafts.in/"
+        icon={<Instagram size={18} />}
+      />
+
+      <SocialCircle
+        href="https://www.linkedin.com/company/brill-crafts/"
+        icon={<Linkedin size={18} />}
+      />
+
+    </div>
+  </div>
+</FooterCol>
         </div>
 
         {/* Bottom Bar */}
@@ -79,7 +99,7 @@ export function Footer() {
             <span className="hidden md:inline">•</span>
             <span>Crafted with intent in India.</span>
           </div>
-          
+
           <div className="flex items-center gap-8 text-sm font-semibold text-[var(--obsidian)]/60">
             <Link to="/privacy" className="transition-colors hover:text-[var(--sky)]">Privacy</Link>
             <Link to="/terms" className="transition-colors hover:text-[var(--sky)]">Terms</Link>
@@ -108,8 +128,8 @@ function FooterCol({ title, children }: { title: string; children: React.ReactNo
 
 function FooterLink({ to, children }: { to: string; children: React.ReactNode }) {
   return (
-    <Link 
-      to={to} 
+    <Link
+      to={to}
       className="group flex items-center text-[15px] font-medium text-[var(--obsidian)]/60 transition-colors hover:text-[var(--obsidian)]"
     >
       <span className="relative">
@@ -120,23 +140,62 @@ function FooterLink({ to, children }: { to: string; children: React.ReactNode })
   );
 }
 
-function ContactItem({ href, icon, text }: { href: string; icon: React.ReactNode; text: string }) {
+function ContactItem({
+  href,
+  icon,
+  text,
+}: {
+  href: string;
+  icon: React.ReactNode;
+  text: string;
+}) {
   return (
-    <a 
-      href={href} 
-      className="flex items-center gap-3 text-[15px] font-medium text-[var(--obsidian)]/60 transition-colors hover:text-[var(--sky)]"
+    <a
+      href={href}
+      target={href.startsWith("http") ? "_blank" : undefined}
+      rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+      className="
+        flex items-center gap-3
+        text-[15px] font-medium
+        text-[var(--obsidian)]/60
+        transition-colors duration-300
+        hover:text-[var(--sky)]
+      "
     >
-      <span className="text-[var(--sky)]/50">{icon}</span>
+      <span className="text-[var(--sky)]/50">
+        {icon}
+      </span>
+
       {text}
     </a>
   );
 }
-
-function SocialCircle({ href, icon }: { href: string; icon: React.ReactNode }) {
+function SocialCircle({
+  href,
+  icon,
+}: {
+  href: string;
+  icon: React.ReactNode;
+}) {
   return (
-    <a 
-      href={href} 
-      className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[var(--obsidian)]/60 shadow-sm border border-[var(--obsidian)]/5 transition-all hover:-translate-y-1 hover:bg-[var(--sky)] hover:text-white hover:shadow-lg hover:shadow-[var(--sky)]/20"
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="
+        flex h-10 w-10 items-center justify-center
+        rounded-xl
+        border border-[var(--obsidian)]/5
+        bg-white
+        text-[var(--obsidian)]/60
+        shadow-sm
+        transition-all duration-300
+        hover:-translate-y-1
+        hover:bg-[var(--sky)]
+        hover:text-white
+        hover:shadow-lg
+        hover:shadow-[var(--sky)]/20
+      "
     >
       {icon}
     </a>
