@@ -1,10 +1,12 @@
 // src/App.tsx
 
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { LoadingScreen } from "./components/Loadingscreen"; // Ensure this path is correct
 
 import { HomePage } from "./pages";
 import { CaseStudiesPage } from "./pages/case-studies";
@@ -15,20 +17,17 @@ import About from "./pages/about";
 import BrandLaunches from "./pages/brand-launches";
 import ExpoStalls from "./pages/expo-stalls";
 import RetailBranding from "./pages/retail-branding";
-import Activations from "./pages/Sampling-Workforce";
 import Printing from "./pages/Printing";
 import Packaging from "./pages/Packaging";
 import MallBranding from "./pages/Mall-College";
-import CorporateEvents from "./pages/Rwa-Corporate-Activations";
-import SamplingWorkforce from "./pages/Sampling-Workforce";
 import RwaCorporateActivations from "./pages/Rwa-Corporate-Activations";
+import SamplingWorkforce from "./pages/Sampling-Workforce";
 import { ServicesPage } from "./pages/services";
 import FloatingWhatsApp from "./components/ui/Floating-Whatsapp";
 
 /* =========================
    SCROLL TO TOP
 ========================= */
-
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -40,93 +39,59 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
-    <div className="min-h-screen bg-white text-[var(--obsidian)]">
-      <Navbar />
+    <>
+      {/* 1. MOUNT LOADING SCREEN FIRST */}
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <LoadingScreen onDone={() => setIsLoading(false)} />
+        )}
+      </AnimatePresence>
 
-      {/* AUTO SCROLL TOP */}
-      <ScrollToTop />
+      {/* 2. MAIN CONTENT WRAPPER */}
+      {/* We keep the main UI mounted but hidden or just conditionally render it */}
+      <div className={`min-h-screen bg-white text-[var(--obsidian)] transition-opacity duration-700 ${isLoading ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'}`}>
+        <Navbar />
 
-      <main className="pt-24">
-        <Routes>
-          {/* HOME */}
-          <Route path="/" element={<HomePage />} />
+        {/* AUTO SCROLL TOP */}
+        <ScrollToTop />
 
-          {/* SERVICES */}
-           <Route
-            path="/services"
-            element={<ServicesPage />}
-          />
-          <Route
-            path="/services/brand-launches"
-            element={<BrandLaunches />}
-          />
+        <main className="pt-24">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/services/brand-launches" element={<BrandLaunches />} />
+            <Route path="/services/expo-stalls" element={<ExpoStalls />} />
+            <Route path="/services/retail-branding" element={<RetailBranding />} />
+            <Route path="/services/sampling-workforce" element={<SamplingWorkforce />} />
+            <Route path="/services/printing-merchandising" element={<Printing />} />
+            <Route path="/services/packaging-gifting" element={<Packaging />} />
+            <Route path="/services/mall-college" element={<MallBranding />} />
+            <Route path="/services/rwa-corporate" element={<RwaCorporateActivations />} />
+            
+            <Route path="/reach" element={<ReachPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/case-studies" element={<CaseStudiesPage />} />
+            <Route path="/about" element={<About />} />
 
-          <Route
-            path="/services/expo-stalls"
-            element={<ExpoStalls />}
-          />
+            {/* 404 */}
+            <Route
+              path="*"
+              element={
+                <div className="flex min-h-[60vh] flex-col items-center justify-center">
+                  <h1 className="text-6xl font-black">404</h1>
+                  <p className="mt-4 text-foreground/60 font-bold">Page not found</p>
+                </div>
+              }
+            />
+          </Routes>
+        </main>
 
-          <Route
-            path="/services/retail-branding"
-            element={<RetailBranding />}
-          />
-
-          <Route
-            path="/services/sampling-workforce"
-            element={<SamplingWorkforce />}
-          />
-
-          <Route
-            path="/services/printing-merchandising"
-            element={<Printing />}
-          />
-
-          <Route
-            path="/services/packaging-gifting"
-            element={<Packaging />}
-          />
-
-          <Route
-            path="/services/mall-college"
-            element={<MallBranding />}
-          />
-
-          <Route
-            path="/services/rwa-corporate"
-            element={<RwaCorporateActivations />}
-          />
-
-          {/* OTHER PAGES */}
-          <Route path="/reach" element={<ReachPage />} />
-
-          <Route path="/contact" element={<ContactPage />} />
-
-          <Route
-            path="/case-studies"
-            element={<CaseStudiesPage />}
-          />
-
-          <Route path="/about" element={<About />} />
-
-          {/* 404 */}
-          <Route
-            path="*"
-            element={
-              <div className="flex min-h-[60vh] flex-col items-center justify-center">
-                <h1 className="text-6xl font-bold">404</h1>
-
-                <p className="mt-4 text-foreground/60">
-                  Page not found
-                </p>
-              </div>
-            }
-          />
-        </Routes>
-      </main>
-     {/* FLOATING WHATSAPP */}
-      <FloatingWhatsApp />
-      <Footer />
-    </div>
+        <FloatingWhatsApp />
+        <Footer />
+      </div>
+    </>
   );
 }
