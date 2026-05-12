@@ -10,6 +10,7 @@ import { PageTransition } from "@/components/PageTransition";
 import { SectionHeader } from "../pages/index";
 import { Counter } from "@/components/Counter";
 import { reachStats } from "@/lib/site";
+import BackgroundEffects from "./BackgroundEffects";
 
 const icons = [Building2, Briefcase, Music, Store, GraduationCap];
 
@@ -18,11 +19,7 @@ export function ReachPage() {
     <PageTransition>
       <div className="relative isolate overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white">
 
-        {/* BACKGROUND GLOWS */}
-        <div className="absolute inset-0 -z-10 pointer-events-none">
-          <div className="absolute -top-40 left-[-10%] h-[500px] w-[500px] rounded-full bg-[var(--sky)]/10 blur-[120px]" />
-          <div className="absolute bottom-[-10%] right-[-10%] h-[500px] w-[500px] rounded-full bg-[var(--parrot)]/10 blur-[120px]" />
-        </div>
+     <BackgroundEffects/>
 
         <section className="relative z-10 py-20">
           <div className="mx-auto max-w-7xl px-6">
@@ -46,94 +43,519 @@ export function ReachPage() {
               </p>
             </div>
 
-            {/* STATS GRID */}
-            <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {reachStats.map((s, i) => {
-                const Icon = icons[i] ?? Building2;
+           {/* STATS GRID */}
+<div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+  {reachStats.map((s, i) => {
+    const Icon = icons[i] ?? Building2;
 
-                return (
-                  <motion.div
-                    key={s.label}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: i * 0.08 }}
-                    className="group relative overflow-hidden rounded-3xl border border-white/40 bg-white/70 p-8 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,116,217,0.08)] hover:-translate-y-2 transition-all"
-                  >
-                    {/* glow */}
-                    <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-[var(--sky)]/10 blur-3xl" />
+    return (
+      <motion.div
+        key={s.label}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{
+          duration: 0.6,
+          delay: i * 0.08,
+        }}
+        whileHover={{
+          y: -10,
+          rotateX: -4,
+          rotateY: 4,
+          scale: 1.02,
+        }}
+        style={{
+          transformStyle: "preserve-3d",
+        }}
+        className="
+          group relative overflow-hidden
 
-                    <div className="flex items-center gap-3 text-[var(--sky)]">
-                      <Icon size={22} />
-                      <span className="text-sm font-semibold text-[var(--obsidian)]/60">
-                        Activation Network
-                      </span>
-                    </div>
+          rounded-[1.8rem]
 
-                    <p className="mt-6 text-6xl font-black bg-gradient-to-r from-[var(--sky)] to-[var(--parrot)] bg-clip-text text-transparent">
-                      <Counter to={s.value} suffix={s.suffix} />
-                    </p>
+          border border-white/40
 
-                    <p className="mt-3 text-[var(--obsidian)]/65">
-                      {s.label}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </div>
+          bg-gradient-to-br
+          from-white
+          via-white
+          to-slate-50
+
+          p-5 sm:p-6
+
+          shadow-[0_20px_60px_rgba(15,23,42,0.08)]
+
+          transition-all duration-700
+
+          hover:border-[var(--sky)]/20
+          hover:shadow-[0_30px_90px_rgba(0,116,217,0.15)]
+        "
+      >
+        {/* LEFT ACCENT */}
+        <div
+          className="
+            absolute left-0 top-0
+
+            h-full w-[5px]
+
+            bg-gradient-to-b
+            from-[var(--obsidian)]
+            via-[var(--sky)]
+            to-[var(--parrot)]
+          "
+        />
+
+        {/* GLOW */}
+        <div
+          className="
+            absolute -right-16 -top-16
+
+            h-40 w-40
+
+            rounded-full
+
+            bg-[var(--sky)]/10
+
+            blur-3xl
+
+            transition-all duration-700
+
+            group-hover:scale-125
+          "
+        />
+
+        {/* SHINE */}
+        <div
+          className="
+            absolute inset-0
+
+            bg-gradient-to-br
+            from-white/40
+            via-transparent
+            to-transparent
+
+            pointer-events-none
+          "
+        />
+
+        {/* CONTENT */}
+        <div
+          className="relative z-10"
+          style={{
+            transform: "translateZ(30px)",
+          }}
+        >
+          {/* TOP */}
+          <div className="flex items-center gap-3">
+            <motion.div
+              whileHover={{
+                rotate: 8,
+                scale: 1.05,
+              }}
+              className="
+                flex h-11 w-11 items-center justify-center
+
+                rounded-xl
+
+                bg-gradient-to-br
+                from-[var(--sky)]
+                to-[var(--parrot)]
+
+                text-white
+
+                shadow-[0_10px_25px_rgba(0,116,217,0.25)]
+              "
+            >
+              <Icon size={20} />
+            </motion.div>
+
+            <span
+              className="
+                text-[10px]
+                sm:text-xs
+
+                font-black
+
+                uppercase
+
+                tracking-[0.16em]
+
+                text-[var(--obsidian)]/55
+              "
+            >
+              Activation Network
+            </span>
+          </div>
+
+          {/* NUMBER */}
+          <div className="mt-6">
+            <p
+              className="
+                text-4xl
+                sm:text-5xl
+
+                font-black
+
+                leading-none
+
+                bg-gradient-to-r
+                from-[var(--sky)]
+                via-cyan-500
+                to-[var(--parrot)]
+
+                bg-clip-text
+                text-transparent
+              "
+            >
+              <Counter to={s.value} suffix={s.suffix} />
+            </p>
+
+            <div
+              className="
+                mt-3
+
+                h-[2px] w-20
+
+                rounded-full
+
+                bg-gradient-to-r
+                from-[var(--sky)]
+                to-transparent
+              "
+            />
+          </div>
+
+          {/* LABEL */}
+          <p
+            className="
+              mt-4
+
+              text-sm
+              sm:text-[15px]
+
+              leading-relaxed
+
+              text-[var(--obsidian)]/65
+            "
+          >
+            {s.label}
+          </p>
+        </div>
+      </motion.div>
+    );
+  })}
+</div>
 
             {/* INSIGHT SECTION */}
-            <div className="mt-20 relative overflow-hidden rounded-[3rem] border border-white/40 bg-white/60 p-10 md:p-14 backdrop-blur-xl">
+          {/* INSIGHT SECTION */}
+<motion.div
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.7 }}
+  className="
+    mt-16 sm:mt-20
 
-              <div className="absolute -top-20 left-0 h-80 w-80 rounded-full bg-[var(--sky)]/10 blur-[120px]" />
-              <div className="absolute bottom-[-20%] right-0 h-80 w-80 rounded-full bg-[var(--parrot)]/10 blur-[120px]" />
+    relative overflow-hidden
 
-              <div className="relative grid gap-10 md:grid-cols-2 items-center">
+    rounded-[2rem] sm:rounded-[3rem]
 
-                <div>
-                  <h3 className="text-3xl md:text-4xl font-black text-[var(--obsidian)]">
-                    Pan-India execution
-                    <span className="block bg-gradient-to-r from-[var(--sky)] to-[var(--parrot)] bg-clip-text text-transparent">
-                      with hyperlocal precision
-                    </span>
-                  </h3>
+    border border-white/40
 
-                  <p className="mt-4 text-[var(--obsidian)]/65 leading-relaxed">
-                    Every campaign is designed based on audience behaviour, geography
-                    and engagement patterns — ensuring brands connect meaningfully
-                    at scale, not just visibility.
-                  </p>
-                </div>
+    bg-white/70
 
-                {/* METRICS */}
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    ["Tier 1 Cities", "12+"],
-                    ["Tier 2 Cities", "30+"],
-                    ["Active States", "18"],
-                    ["Brand Partners", "120+"],
-                  ].map(([label, value]) => (
-                    <div
-                      key={label}
-                      className="rounded-2xl border border-white/40 bg-white/70 p-5 backdrop-blur-xl"
-                    >
-                      <p className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[var(--sky)] to-[var(--parrot)]">
-                        {value}
-                      </p>
-                      <p className="mt-1 text-sm text-[var(--obsidian)]/60">
-                        {label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+    p-6 sm:p-8 lg:p-14
 
-              </div>
-            </div>
+    backdrop-blur-2xl
 
+    shadow-[0_25px_80px_rgba(15,23,42,0.08)]
+  "
+>
+  {/* BACKGROUND GLOWS */}
+  <div
+    className="
+      absolute -top-20 left-0
+
+      h-60 w-60 sm:h-80 sm:w-80
+
+      rounded-full
+
+      bg-[var(--sky)]/10
+
+      blur-[100px]
+    "
+  />
+
+  <div
+    className="
+      absolute bottom-[-20%] right-0
+
+      h-60 w-60 sm:h-80 sm:w-80
+
+      rounded-full
+
+      bg-[var(--parrot)]/10
+
+      blur-[100px]
+    "
+  />
+
+  {/* SHINE */}
+  <div
+    className="
+      absolute inset-0
+
+      bg-gradient-to-br
+      from-white/40
+      via-transparent
+      to-transparent
+
+      pointer-events-none
+    "
+  />
+
+  <div
+    className="
+      relative z-10
+
+      grid gap-10 lg:gap-16
+
+      lg:grid-cols-[1.1fr_0.9fr]
+
+      items-center
+    "
+  >
+    {/* LEFT CONTENT */}
+    <div>
+      {/* SMALL BADGE */}
+      <div
+        className="
+          inline-flex items-center gap-2
+
+          rounded-full
+
+          border border-slate-200
+
+          bg-white/80
+
+          px-4 py-2
+
+          text-[10px] sm:text-xs
+
+          font-black
+
+          uppercase
+
+          tracking-[0.18em]
+
+          text-[var(--sky)]
+
+          backdrop-blur-xl
+        "
+      >
+        Pan India Reach
+      </div>
+
+      {/* HEADING */}
+      <h3
+        className="
+          mt-6
+
+          text-3xl
+          sm:text-4xl
+          lg:text-5xl
+
+          font-black
+
+          leading-tight
+
+          text-[var(--obsidian)]
+        "
+      >
+        Pan-India execution
+        <span
+          className="
+            mt-2 block
+
+            bg-gradient-to-r
+            from-[var(--sky)]
+            to-[var(--parrot)]
+
+            bg-clip-text
+            text-transparent
+          "
+        >
+          with hyperlocal precision
+        </span>
+      </h3>
+
+      {/* DESCRIPTION */}
+      <p
+        className="
+          mt-5
+
+          max-w-2xl
+
+          text-sm
+          sm:text-base
+          lg:text-lg
+
+          leading-relaxed
+
+          text-[var(--obsidian)]/65
+        "
+      >
+        Every campaign is strategically crafted around audience
+        behavior, geography, and engagement insights — enabling
+        brands to create meaningful impact at scale rather than
+        just visibility.
+      </p>
+
+      {/* FEATURE LINE */}
+      <div
+        className="
+          mt-8
+
+          flex flex-wrap gap-3
+        "
+      >
+        {[
+          "Experiential Marketing",
+          "Retail Activations",
+          "Exhibition Solutions",
+        ].map((item) => (
+          <div
+            key={item}
+            className="
+              rounded-full
+
+              border border-slate-200
+
+              bg-white/80
+
+              px-4 py-2
+
+              text-xs
+
+              font-semibold
+
+              text-[var(--obsidian)]/70
+
+              backdrop-blur-xl
+            "
+          >
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* RIGHT METRICS */}
+    <div className="grid grid-cols-2 gap-4 sm:gap-5">
+      {[
+        ["Tier 1 Cities", "12+"],
+        ["Tier 2 Cities", "30+"],
+        ["Active States", "18"],
+        ["Brand Partners", "120+"],
+      ].map(([label, value], index) => (
+        <motion.div
+          key={label}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{
+            duration: 0.5,
+            delay: index * 0.08,
+          }}
+          whileHover={{
+            y: -6,
+            scale: 1.03,
+          }}
+          className="
+            group relative overflow-hidden
+
+            rounded-[1.5rem]
+
+            border border-white/40
+
+            bg-white/80
+
+            p-5 sm:p-6
+
+            backdrop-blur-xl
+
+            shadow-[0_15px_40px_rgba(15,23,42,0.06)]
+
+            transition-all duration-500
+
+            hover:border-[var(--sky)]/20
+            hover:shadow-[0_25px_60px_rgba(0,116,217,0.12)]
+          "
+        >
+          {/* CARD GLOW */}
+          <div
+            className="
+              absolute -right-10 -top-10
+
+              h-28 w-28
+
+              rounded-full
+
+              bg-[var(--sky)]/10
+
+              blur-3xl
+
+              transition-all duration-500
+
+              group-hover:scale-125
+            "
+          />
+
+          {/* VALUE */}
+          <p
+            className="
+              relative z-10
+
+              text-3xl
+              sm:text-4xl
+
+              font-black
+
+              bg-gradient-to-r
+              from-[var(--sky)]
+              to-[var(--parrot)]
+
+              bg-clip-text
+              text-transparent
+            "
+          >
+            {value}
+          </p>
+
+          {/* LABEL */}
+          <p
+            className="
+              relative z-10
+
+              mt-2
+
+              text-xs
+              sm:text-sm
+
+              leading-relaxed
+
+              text-[var(--obsidian)]/60
+            "
+          >
+            {label}
+          </p>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</motion.div>
           </div>
         </section>
         {/* CTA */}
-<section className="relative z-10 pb-32 pt-20">
+<section className="relative z-10 pb-32 ">
   <div className="mx-auto max-w-6xl px-6">
 
     <motion.div

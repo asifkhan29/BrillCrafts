@@ -1232,7 +1232,7 @@ export default function About() {
       {/* STATS */}
       <div className="mt-8 sm:mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
         {[
-          { value: "4+", label: "Years Experience" },
+          { value: "6+", label: "Years Experience" },
           { value: "120+", label: "Projects" },
           { value: "40+", label: "Clients" },
         ].map((item) => (
