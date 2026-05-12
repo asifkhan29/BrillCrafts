@@ -5,6 +5,7 @@ import heroMetro from "@/assets/hero-metro.jpg";
 import caseLaunch from "@/assets/case-launch.jpg";
 import caseExpo from "@/assets/case-expo.jpg";
 import caseMall from "@/assets/case-mall.jpg";
+import BackgroundEffects from "./BackgroundEffects";
 
 
 
@@ -19,37 +20,58 @@ const items = [
 
 export function CaseStudiesPage() {
   return (
-    <PageTransition>
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-6">
-          <SectionHeader
-            eyebrow="Case studies"
-            title="Crafted for brands that lead."
-            desc="A high-resolution glimpse of recent campaigns — engineered to make audiences look twice."
-          />
+   <PageTransition>
+  <section className="relative py-20 overflow-hidden">
 
-          <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 auto-rows-[200px] md:auto-rows-[260px] gap-5">
-            {items.map((it, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.96 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: i * 0.07 }}
-                className={`group relative overflow-hidden rounded-3xl ${it.span}`}
-              >
-                <img src={it.img} alt={it.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[color-mix(in_oklab,var(--deep)_85%,transparent)] via-[color-mix(in_oklab,var(--deep)_20%,transparent)] to-transparent" />
-                <div className="absolute bottom-0 left-0 p-5">
-                  <span className="text-xs uppercase tracking-widest text-primary">{it.tag}</span>
-                  <h3 className="mt-1 text-xl md:text-2xl font-semibold">{it.title}</h3>
-                </div>
-                <div className="absolute inset-0 ring-0 ring-primary/0 group-hover:ring-2 group-hover:ring-primary/40 transition-all rounded-3xl" />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </PageTransition>
+    {/* BACKGROUND */}
+      <BackgroundEffects />
+   
+
+    {/* CONTENT */}
+    <div className="relative z-10 mx-auto max-w-7xl px-6">
+      <SectionHeader
+        eyebrow="Case studies"
+        title="Crafted for brands that lead."
+        desc="A high-resolution glimpse of recent campaigns — engineered to make audiences look twice."
+      />
+
+      <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[240px] md:auto-rows-[280px] gap-5">
+        {items.map((it, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: i * 0.07 }}
+            className={`
+              relative overflow-hidden rounded-3xl group
+              ${it.span}
+            `}
+          >
+            <img
+              src={it.img}
+              alt={it.title}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+
+            {/* DARK OVERLAY */}
+            <div className="absolute inset-0 bg-black/45 z-10" />
+
+            {/* TEXT */}
+            <div className="absolute inset-x-0 bottom-0 z-20 p-5">
+              <span className="text-xs uppercase tracking-[0.2em] text-primary">
+                {it.tag}
+              </span>
+
+              <h3 className="mt-2 text-lg md:text-2xl font-semibold text-white leading-snug">
+                {it.title}
+              </h3>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+</PageTransition>
   );
 }

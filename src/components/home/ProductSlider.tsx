@@ -1,168 +1,514 @@
 import BackgroundEffects from "@/pages/BackgroundEffects";
+import { PageTransition } from "@/components/PageTransition";
 import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 
-const AZURE = "#1D90FF";
-const MINT = "#34D399"; // Light Green / Mint
-
 const products = [
-  { 
-    name: "Glass Stands", 
-    img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=400", 
+  {
+    name: "Glass Stands",
+    img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=1200",
     desc: "Premium Acrylic Finish",
-    tag: "Eco-Friendly"
+    tag: "Eco-Friendly",
   },
-  { 
-    name: "Premium Flasks", 
-    img: "https://images.unsplash.com/photo-1602143307185-844470efe014?auto=format&fit=crop&q=80&w=400", 
+  {
+    name: "Premium Flasks",
+    img: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=1200",
     desc: "Laser Engraved Steel",
-    tag: "Best Seller"
+    tag: "Best Seller",
   },
-  { 
-    name: "Branded Mugs", 
-    img: "https://images.unsplash.com/photo-1514228742587-6b1558fbed50?auto=format&fit=crop&q=80&w=400", 
+  {
+    name: "Branded Mugs",
+    img: "https://images.unsplash.com/photo-1514228742587-6b1558fbed50?auto=format&fit=crop&q=80&w=1200",
     desc: "Matte Ceramic Print",
-    tag: "Corporate"
+    tag: "Corporate",
   },
-  { 
-    name: "Mobile Covers", 
-    img: "https://images.unsplash.com/photo-1586105251261-72a756497a11?auto=format&fit=crop&q=80&w=400", 
+  {
+    name: "Mobile Covers",
+    img: "https://images.unsplash.com/photo-1601593346740-925612772716?auto=format&fit=crop&q=80&w=1200",
     desc: "Durable Polycarbonate",
-    tag: "Trending"
+    tag: "Trending",
   },
-  { 
-    name: "Tablet Sleeves", 
-    img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&q=80&w=400", 
-    desc: "Custom Fabric Totes",
-    tag: "New Arrival"
+  {
+    name: "Tablet Sleeves",
+    img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&q=80&w=1200",
+    desc: "Custom Fabric Finish",
+    tag: "New Arrival",
   },
-  { 
-    name: "Desk Merch", 
-    img: "https://images.unsplash.com/photo-1586075010633-24700bd61414?auto=format&fit=crop&q=80&w=400", 
+  {
+    name: "Desk Merch",
+    img: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&q=80&w=1200",
     desc: "Executive Gift Set",
-    tag: "Premium"
+    tag: "Premium",
   },
 ];
 
-const infiniteProducts = [...products, ...products, ...products, ...products];
+/* ONLY DOUBLE FOR SMOOTH LOOP */
+const infiniteProducts = [...products, ...products];
 
 export function ProductSlider() {
   return (
-    <section className="relative w-full bg-[#FCFDFF] py-24 overflow-hidden">
-      {/* Background layer stays at the very bottom */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <BackgroundEffects />
-      </div>
-
-      {/* Content layer forced to the top using z-10 */}
-      <div className="relative z-10">
-        <div className="max-w-7xl mx-auto px-6 mb-16">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="not-italic" /* Explicitly ensuring no italics */
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <span className="h-[3px] w-10 bg-emerald-400"></span>
-                <span className="text-[12px] font-black uppercase tracking-[0.3em] text-emerald-500">Inventory Excellence</span>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none italic-none">
-                The Swag <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-emerald-400">Universe</span>
-              </h2>
-              <p className="text-slate-500 mt-4 max-w-md font-bold leading-relaxed">
-                Precision branding on curated high-quality materials. From executive desks to daily essentials.
-              </p>
-            </motion.div>
-
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              className="hidden md:flex items-center gap-3 px-6 py-3 rounded-2xl border border-slate-100 bg-white/80 backdrop-blur-md shadow-sm cursor-pointer"
-            >
-              <ShieldCheck className="text-emerald-500" size={20} />
-              <span className="text-sm font-black text-slate-700">ISO Certified Quality</span>
-            </motion.div>
-          </div>
+    <PageTransition>
+      <section className="relative w-full overflow-hidden bg-[#FCFDFF] py-20 sm:py-24">
+        {/* BACKGROUND */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <BackgroundEffects />
         </div>
 
-        {/* The Ultra-Modern Marquee */}
-        <div className="relative group/marquee">
-          <motion.div
-            className="flex gap-10 px-6"
-            animate={{ x: [0, -3200] }}
-            transition={{
-              duration: 50,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          >
-            {infiniteProducts.map((item, idx) => (
+        {/* CONTENT */}
+        <div className="relative z-10">
+          {/* HEADER */}
+          <div className="mx-auto mb-14 max-w-7xl px-4 sm:px-6">
+            <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+              {/* LEFT */}
               <motion.div
-                key={idx}
-                className="group relative flex flex-col w-[300px] md:w-[350px] shrink-0 rounded-[40px] bg-white border border-slate-100 overflow-hidden shadow-[0_10px_30px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_80px_-20px_rgba(29,144,255,0.2)] transition-all duration-700"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
               >
-                <div className="relative h-[240px] overflow-hidden">
-                  <img
-                    src={item.img}
-                    alt={item.name}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  />
-                  <div className="absolute top-5 left-5 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-white/50 shadow-sm">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">{item.tag}</span>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="h-[3px] w-10 rounded-full bg-emerald-400" />
+
+                  <span
+                    className="
+                      text-[10px]
+                      sm:text-xs
+
+                      font-black
+
+                      uppercase
+
+                      tracking-[0.28em]
+
+                      text-emerald-500
+                    "
+                  >
+                    Inventory Excellence
+                  </span>
                 </div>
 
-                <div className="p-8 flex flex-col justify-between flex-1 relative bg-white">
-                  <div>
-                    <h4 className="text-2xl font-black text-slate-800 transition-colors group-hover:text-blue-600">
-                      {item.name}
-                    </h4>
-                    <p className="text-sm font-bold text-slate-400 mt-2">{item.desc}</p>
-                  </div>
+                <h2
+                  className="
+                    text-4xl
+                    sm:text-5xl
+                    lg:text-6xl
 
-                  <div className="flex items-center justify-between mt-8">
-                    <div className="flex -space-x-2">
-                       {[1,2,3].map(i => (
-                         <div key={i} className="w-6 h-6 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[8px] font-black">
-                            {String.fromCharCode(64 + i)}
-                         </div>
-                       ))}
-                       <span className="ml-4 text-[10px] font-black text-slate-400 self-center">+1k Sold</span>
-                    </div>
-                    
-                    <motion.div 
-                      whileHover={{ x: 5 }}
-                      className="flex items-center gap-2 text-emerald-500 font-black text-[11px] uppercase tracking-wider cursor-pointer"
-                    >
-                      Details <ArrowRight size={14} />
-                    </motion.div>
-                  </div>
-                </div>
+                    font-black
 
-                <div className="absolute inset-0 rounded-[40px] border-2 border-transparent group-hover:border-emerald-400/30 pointer-events-none transition-all duration-500" />
+                    leading-[0.95]
+                    tracking-tight
+
+                    text-slate-900
+                  "
+                >
+                  The Swag{" "}
+                  <span
+                    className="
+                      bg-gradient-to-r
+                      from-blue-500
+                      to-emerald-400
+
+                      bg-clip-text
+                      text-transparent
+                    "
+                  >
+                    Universe
+                  </span>
+                </h2>
+
+                <p
+                  className="
+                    mt-5
+
+                    max-w-xl
+
+                    text-sm
+                    sm:text-base
+
+                    font-semibold
+                    leading-relaxed
+
+                    text-slate-500
+                  "
+                >
+                  Precision branding on curated premium products.
+                  Crafted for modern brands, gifting, and immersive
+                  merchandise experiences.
+                </p>
               </motion.div>
-            ))}
-          </motion.div>
 
-          {/* Vignette Overlays */}
-          <div className="absolute inset-y-0 left-0 w-32 md:w-64 bg-gradient-to-r from-[#FCFDFF] via-[#FCFDFF]/80 to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-32 md:w-64 bg-gradient-to-l from-[#FCFDFF] via-[#FCFDFF]/80 to-transparent z-10 pointer-events-none" />
-        </div>
+              {/* RIGHT BADGE */}
+              <motion.div
+                whileHover={{
+                  y: -3,
+                  scale: 1.03,
+                }}
+                className="
+                  hidden md:flex
 
-        {/* Bottom Trust Section */}
-        <div className="mt-20 border-t border-slate-100/50 pt-12">
-          <div className="flex flex-wrap justify-center gap-x-16 gap-y-8 px-6 opacity-60">
-             {['High Fidelity Print', 'Global Shipping', 'Bulk Discounting', 'Custom Packaging'].map((text) => (
-               <div key={text} className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-600">{text}</span>
-               </div>
-             ))}
+                  items-center gap-3
+
+                  rounded-2xl
+
+                  border border-slate-200/70
+
+                  bg-white/80
+
+                  px-6 py-3
+
+                  backdrop-blur-xl
+
+                  shadow-[0_10px_30px_rgba(15,23,42,0.05)]
+                "
+              >
+                <ShieldCheck
+                  className="text-emerald-500"
+                  size={20}
+                />
+
+                <span className="text-sm font-black text-slate-700">
+                  ISO Certified Quality
+                </span>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* MARQUEE */}
+          <div className="relative overflow-hidden">
+            <motion.div
+              className="
+                marquee-track
+
+                flex w-max
+
+                gap-5
+                sm:gap-7
+
+                px-4 sm:px-6
+              "
+              animate={{
+                x: ["0%", "-50%"],
+              }}
+              transition={{
+                duration: 28,
+                ease: "linear",
+                repeat: Infinity,
+              }}
+              style={{
+                willChange: "transform",
+              }}
+            >
+              {infiniteProducts.map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  whileHover={{
+                    y: -8,
+                    scale: 1.015,
+                  }}
+                  transition={{
+                    duration: 0.35,
+                  }}
+                  className="
+                    group relative
+
+                    flex shrink-0 flex-col
+
+                    w-[250px]
+                    sm:w-[280px]
+                    md:w-[310px]
+
+                    overflow-hidden
+
+                    rounded-[1.8rem]
+
+                    border border-slate-200/70
+
+                    bg-white
+
+                    shadow-[0_10px_30px_rgba(15,23,42,0.05)]
+
+                    transition-all duration-500
+
+                    hover:border-emerald-300/40
+                    hover:shadow-[0_20px_50px_rgba(29,144,255,0.12)]
+                  "
+                >
+                  {/* IMAGE */}
+                  <div
+                    className="
+                      relative overflow-hidden
+
+                      h-[200px]
+                      sm:h-[230px]
+                    "
+                  >
+                    <img
+                      src={item.img}
+                      alt={item.name}
+                      loading="lazy"
+                      decoding="async"
+                      className="
+                        h-full w-full object-cover
+
+                        transition-transform duration-700
+
+                        group-hover:scale-105
+                      "
+                    />
+
+                    {/* OVERLAY */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+
+                    {/* TAG */}
+                    <div
+                      className="
+                        absolute left-4 top-4
+
+                        rounded-full
+
+                        bg-white/90
+
+                        px-3 py-1.5
+
+                        backdrop-blur-md
+
+                        shadow-sm
+                      "
+                    >
+                      <span
+                        className="
+                          text-[9px]
+
+                          font-black
+
+                          uppercase
+
+                          tracking-[0.18em]
+
+                          text-emerald-600
+                        "
+                      >
+                        {item.tag}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* CONTENT */}
+                  <div className="flex flex-1 flex-col justify-between p-5">
+                    <div>
+                      <h4
+                        className="
+                          text-xl
+                          sm:text-2xl
+
+                          font-black
+
+                          text-slate-800
+
+                          transition-colors duration-300
+
+                          group-hover:text-blue-600
+                        "
+                      >
+                        {item.name}
+                      </h4>
+
+                      <p
+                        className="
+                          mt-2
+
+                          text-sm
+
+                          font-medium
+
+                          text-slate-400
+                        "
+                      >
+                        {item.desc}
+                      </p>
+                    </div>
+
+                    {/* FOOTER */}
+                    <div className="mt-7 flex items-center justify-between">
+                      {/* USERS */}
+                      <div className="flex items-center">
+                        <div className="flex -space-x-2">
+                          {[1, 2, 3].map((i) => (
+                            <div
+                              key={i}
+                              className="
+                                flex h-7 w-7 items-center justify-center
+
+                                rounded-full
+
+                                border-2 border-white
+
+                                bg-slate-100
+
+                                text-[9px]
+                                font-black
+
+                                text-slate-700
+                              "
+                            >
+                              {String.fromCharCode(64 + i)}
+                            </div>
+                          ))}
+                        </div>
+
+                        <span
+                          className="
+                            ml-4
+
+                            text-[10px]
+
+                            font-black
+
+                            uppercase
+
+                            tracking-[0.18em]
+
+                            text-slate-400
+                          "
+                        >
+                          +1k Sold
+                        </span>
+                      </div>
+
+                      {/* DETAILS */}
+                      <motion.div
+                        whileHover={{ x: 3 }}
+                        className="
+                          flex items-center gap-1.5
+
+                          cursor-pointer
+
+                          text-[10px]
+
+                          font-black
+
+                          uppercase
+
+                          tracking-[0.16em]
+
+                          text-emerald-500
+                        "
+                      >
+                        Details <ArrowRight size={13} />
+                      </motion.div>
+                    </div>
+                  </div>
+
+                  {/* BORDER */}
+                  <div
+                    className="
+                      pointer-events-none
+
+                      absolute inset-0
+
+                      rounded-[1.8rem]
+
+                      border border-transparent
+
+                      transition-all duration-500
+
+                      group-hover:border-emerald-300/30
+                    "
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* LEFT FADE */}
+            <div
+              className="
+                pointer-events-none
+
+                absolute inset-y-0 left-0
+
+                w-16
+                sm:w-24
+                md:w-40
+
+                bg-gradient-to-r
+                from-[#FCFDFF]
+                to-transparent
+
+                z-10
+              "
+            />
+
+            {/* RIGHT FADE */}
+            <div
+              className="
+                pointer-events-none
+
+                absolute inset-y-0 right-0
+
+                w-16
+                sm:w-24
+                md:w-40
+
+                bg-gradient-to-l
+                from-[#FCFDFF]
+                to-transparent
+
+                z-10
+              "
+            />
+          </div>
+
+          {/* TRUST SECTION */}
+          <div className="mt-20 border-t border-slate-100/60 pt-12">
+            <div
+              className="
+                flex flex-wrap justify-center
+
+                gap-x-10
+                gap-y-6
+
+                px-6
+
+                opacity-70
+              "
+            >
+              {[
+                "High Fidelity Print",
+                "Global Shipping",
+                "Bulk Discounting",
+                "Custom Packaging",
+              ].map((text) => (
+                <motion.div
+                  key={text}
+                  whileHover={{
+                    y: -2,
+                    scale: 1.03,
+                  }}
+                  className="flex items-center gap-2"
+                >
+                  <div className="h-2 w-2 rounded-full bg-emerald-400" />
+
+                  <span
+                    className="
+                      text-[10px]
+
+                      font-black
+
+                      uppercase
+
+                      tracking-[0.28em]
+
+                      text-slate-600
+                    "
+                  >
+                    {text}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </PageTransition>
   );
 }

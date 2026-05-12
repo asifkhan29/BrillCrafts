@@ -9,6 +9,8 @@ import {
   MessageCircle,
 } from "lucide-react";
 
+import BackgroundEffects from "./BackgroundEffects";
+
 export function ContactPage() {
   const [sent, setSent] = useState(false);
 
@@ -28,6 +30,7 @@ export function ContactPage() {
     brief: "",
   });
 
+  /* HANDLE CHANGE */
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -142,7 +145,6 @@ ${formData.brief}
     setSent(true);
   };
 
-  /* CHECK EMPTY */
   const isFormValid =
     formData.name.trim() &&
     formData.email.trim() &&
@@ -151,22 +153,19 @@ ${formData.brief}
     formData.brief.trim();
 
   return (
-    <section className="relative overflow-hidden py-20">
-
-      {/* BACKGROUND */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute left-[-10%] top-10 h-[400px] w-[400px] rounded-full bg-sky-400/10 blur-[120px]" />
-
-        <div className="absolute bottom-0 right-[-10%] h-[400px] w-[400px] rounded-full bg-lime-400/10 blur-[120px]" />
+    <section className="relative isolate overflow-hidden py-24">
+      {/* BACKGROUND EFFECTS */}
+      <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
+        <BackgroundEffects />
       </div>
 
-      <div className="mx-auto max-w-7xl px-6">
+      {/* EXTRA GLOW */}
+      <div className="absolute left-1/2 top-[-10%] -z-10 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-[var(--sky)]/10 blur-[120px]" />
 
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         <div className="grid items-start gap-14 lg:grid-cols-[1fr_1.1fr]">
-
           {/* LEFT SIDE */}
           <div>
-
             {/* BADGE */}
             <div
               className="
@@ -205,7 +204,6 @@ ${formData.brief}
 
             {/* CONTACT ROWS */}
             <div className="mt-10 space-y-5">
-
               <ContactRow
                 icon={Mail}
                 label={
@@ -231,6 +229,21 @@ ${formData.brief}
               />
 
               <ContactRow
+                icon={MessageCircle}
+                label={
+                  <a
+                    href="https://wa.me/917506839909"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 transition-colors hover:text-green-500"
+                  >
+                    <MessageCircle size={16} />
+                    WhatsApp Chat
+                  </a>
+                }
+              />
+
+              <ContactRow
                 icon={MapPin}
                 label={
                   <a
@@ -245,32 +258,51 @@ ${formData.brief}
               />
             </div>
 
-            {/* MAP */}
-            <div
-              className="
-    relative mt-12 overflow-hidden
-    rounded-[2rem]
-    border border-white/50
-    bg-white/70
-    p-3
-    backdrop-blur-2xl
-    shadow-[0_20px_60px_rgba(15,23,42,0.06)]
-  "
-            >
-              {/* LEFT GRADIENT BORDER */}
-              <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-[var(--sky)] to-[var(--parrot)]" />
+            {/* MAP SECTION */}
+            <div className="relative mt-16 sm:mt-20 lg:mt-24 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+              {/* OUTER GLOW */}
+              <div className="absolute inset-0 rounded-[3rem] bg-gradient-to-r from-[var(--sky)]/10 to-[var(--parrot)]/10 blur-3xl" />
 
-              {/* MAP WRAPPER */}
-              <div className="overflow-hidden rounded-[1.5rem] border border-slate-200">
+              {/* MAP CONTAINER */}
+     <div
+  className="
+    relative overflow-hidden
+
+    rounded-[1.8rem]
+    sm:rounded-[2.2rem]
+    lg:rounded-[2.5rem]
+
+    border border-white/40
+    bg-white/60
+    backdrop-blur-2xl
+
+    shadow-[0_25px_80px_rgba(15,23,42,0.08)]
+
+    w-full
+    lg:w-[115%]
+    xl:w-[125%]
+
+    lg:-ml-[7.5%]
+    xl:-ml-[12.5%]
+
+    mx-auto
+  "
+>
+                {/* LEFT ACCENT */}
+                <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-[var(--sky)] to-[var(--parrot)]" />
+
                 <iframe
                   title="Brill Crafts Location"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.7828360209414!2d72.8900539!3d19.1016406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c90016fa2211%3A0xaf0ae62db39a0861!2sBrill%20Crafts!5e0!3m2!1sen!2sin!4v1778330993731!5m2!1sen!2sin"
-                  width="100%"
-                  height="350"
                   loading="lazy"
                   allowFullScreen
                   referrerPolicy="no-referrer-when-downgrade"
-                  className="h-[350px] w-full border-0"
+                  className="
+                    h-[380px]
+                    md:h-[520px]
+                    w-full
+                    border-0
+                  "
                 />
               </div>
             </div>
@@ -291,11 +323,9 @@ ${formData.brief}
               shadow-[0_25px_80px_rgba(15,23,42,0.08)]
             "
           >
-
             <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-[var(--sky)] to-[var(--parrot)]" />
 
             <div className="grid gap-6">
-
               <Field
                 label="Your name"
                 id="name"
@@ -306,7 +336,6 @@ ${formData.brief}
               />
 
               <div className="grid gap-6 md:grid-cols-2">
-
                 <Field
                   label="Email"
                   id="email"
@@ -325,7 +354,6 @@ ${formData.brief}
                   placeholder="Brand Co."
                   error={errors.company}
                 />
-
               </div>
 
               <Field
@@ -368,8 +396,7 @@ ${formData.brief}
 
               {/* BUTTONS */}
               <div className="flex flex-wrap gap-4 pt-2">
-
-                {/* EMAIL BUTTON */}
+                {/* EMAIL */}
                 <button
                   type="button"
                   onClick={handleEmail}
@@ -394,7 +421,7 @@ ${formData.brief}
                   />
                 </button>
 
-                {/* WHATSAPP BUTTON */}
+                {/* WHATSAPP */}
                 <button
                   type="button"
                   onClick={handleWhatsApp}
@@ -450,6 +477,9 @@ const ContactRow = ({
         bg-white/60
         p-4
         backdrop-blur-xl
+        transition-all duration-300
+        hover:-translate-y-1
+        hover:shadow-lg
       "
     >
       <div
@@ -485,9 +515,7 @@ function Field({
   type?: string;
   placeholder?: string;
   value: string;
-  onChange: (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
 }) {
   return (

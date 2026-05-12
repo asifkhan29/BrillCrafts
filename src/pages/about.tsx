@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import BackgroundEffects from "./BackgroundEffects";
-
+import founderImg from "@/assets/Founder_Nafis.jpg";
 /* ---------------- DATA (UNCHANGED) ---------------- */
 
 const stats = [
@@ -1035,69 +1035,20 @@ export default function About() {
               md:h-[420px]
             "
           >
-            <img
-              src="/founder.jpg"
-              alt="Founder"
-              className="
-                h-full w-full object-cover
-
-                transition-transform duration-700
-                hover:scale-110
-              "
-            />
+           <img
+  src={founderImg}
+  alt="Founder"
+  className="
+    h-full w-full object-cover
+    transition-transform duration-700
+    hover:scale-110
+  "
+/>
 
             {/* OVERLAY */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
-            {/* FLOATING BADGE */}
-            <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="
-                absolute
-                left-4 top-4
-                sm:left-6 sm:top-6
-              "
-            >
-              <div
-                className="
-                  flex items-center gap-2
-                  rounded-full
-
-                  border border-white/30
-                  bg-white/15
-
-                  px-3 py-1.5
-                  sm:px-4 sm:py-2
-
-                  backdrop-blur-2xl
-
-                  shadow-[0_10px_40px_rgba(0,0,0,0.25)]
-                "
-              >
-                <div className="h-2 w-2 rounded-full bg-[var(--parrot)] animate-pulse" />
-
-                <span
-                  className="
-                    text-[9px]
-                    sm:text-[10px]
-
-                    font-bold uppercase
-
-                    tracking-[0.16em]
-                    sm:tracking-[0.22em]
-
-                    text-white
-                  "
-                >
-                  Founder
-                </span>
-              </div>
-            </motion.div>
+       
 
             {/* NAME */}
             <div

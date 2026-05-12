@@ -3,6 +3,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import logo from "@/assets/logo.png";
 import {
   Menu,
   X,
@@ -17,6 +18,7 @@ import {
   ExternalLink,
   Info,
 } from "lucide-react";
+import BackgroundEffects from "@/pages/BackgroundEffects";
 
 const serviceLinks = {
   Activations: [
@@ -114,32 +116,60 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-[100]">
+
       <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6">
         <nav
           className={`pointer-events-auto mx-auto flex items-center justify-between rounded-full border transition-all duration-500 ${scrolled
-              ? "max-w-5xl border-white/20 bg-white/70 px-5 py-3 shadow-[0_10px_50px_rgba(0,0,0,0.08)] backdrop-blur-xl"
-              : "max-w-full border-white/10 bg-white/5 px-5 py-3 backdrop-blur-md"
+            ? "max-w-5xl border-white/20 bg-white/70 px-5 py-3 shadow-[0_10px_50px_rgba(0,0,0,0.08)] backdrop-blur-xl"
+            : "max-w-full border-white/10 bg-white/5 px-5 py-3 backdrop-blur-md"
             }`}
         >
-          {/* LOGO */}
-          <Link
-            to="/"
-            className="group flex items-center gap-3"
-          >
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--obsidian)] text-lg font-black text-white shadow-lg transition-transform duration-300 group-hover:rotate-6">
-              B
-            </div>
+         {/* LOGO */}
+<Link
+  to="/"
+  className="group flex items-center gap-3"
+>
+  {/* IMAGE LOGO */}
+  <div
+    className="
+      overflow-hidden
 
-            <div className="flex flex-col leading-tight">
-              <span className="text-lg font-bold tracking-tight text-[var(--obsidian)]">
-                Brill Crafts
-              </span>
+      transition-all duration-300
 
-              <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--sky)]">
-                Brand Activation
-              </span>
-            </div>
-          </Link>
+      group-hover:scale-105
+    "
+  >
+    <img
+      src={logo}
+      alt="Brill Crafts Logo"
+      className="
+        h-12
+        w-auto
+
+        object-contain
+      "
+    />
+  </div>
+
+  {/* TEXT */}
+  <div className="flex flex-col leading-tight">
+    <span className="text-lg font-bold tracking-tight text-[var(--obsidian)]">
+      Brill Crafts
+    </span>
+
+    <span
+      className="
+        text-[11px]
+        font-medium
+        uppercase
+        tracking-[0.18em]
+        text-[var(--sky)]
+      "
+    >
+      Brand Activation
+    </span>
+  </div>
+</Link>
 
           {/* DESKTOP MENU */}
           <div className="hidden items-center gap-1 lg:flex">
@@ -456,16 +486,16 @@ function NavItem({
     <Link
       to={to}
       className={`group relative px-4 py-2 text-sm font-semibold transition-colors ${active
-          ? "text-[var(--sky)]"
-          : "text-[var(--obsidian)]/70 hover:text-[var(--obsidian)]"
+        ? "text-[var(--sky)]"
+        : "text-[var(--obsidian)]/70 hover:text-[var(--obsidian)]"
         }`}
     >
       {label}
 
       <span
         className={`absolute inset-x-4 bottom-1 h-0.5 origin-left bg-[var(--sky)] transition-transform duration-300 ${active
-            ? "scale-x-100"
-            : "scale-x-0 group-hover:scale-x-100"
+          ? "scale-x-100"
+          : "scale-x-0 group-hover:scale-x-100"
           }`}
       />
     </Link>
