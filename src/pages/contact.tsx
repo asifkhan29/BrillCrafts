@@ -153,6 +153,8 @@ ${formData.brief}
     formData.brief.trim();
 
   return (
+    
+    
     <section className="relative isolate overflow-hidden py-24">
       {/* BACKGROUND EFFECTS */}
       <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">

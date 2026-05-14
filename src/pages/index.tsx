@@ -44,7 +44,25 @@ import React from "react";
 import BackgroundEffects from "./BackgroundEffects";
 import { OrbitalGallery } from "@/components/OrbitalGallery";
 import { ProductSlider } from "@/components/home/ProductSlider";
-
+import logo1 from "@/assets/logo/logo.jpeg";
+import logo2 from "@/assets/logo/logo (2).jpeg";
+import logo3 from "@/assets/logo/logo (3).jpeg";
+import logo4 from "@/assets/logo/logo (4).jpeg";
+import logo5 from "@/assets/logo/logo (5).jpeg";
+import logo6 from "@/assets/logo/logo (6).jpeg";
+import logo7 from "@/assets/logo/logo (7).jpeg";
+import logo8 from "@/assets/logo/logo (8).jpeg";
+import logo9 from "@/assets/logo/logo (9).jpeg";
+import logo10 from "@/assets/logo/logo (10).jpeg";
+  import logo11 from "@/assets/logo/logo (11).jpeg";
+import logo12 from "@/assets/logo/logo (12).jpeg";
+import logo13 from "@/assets/logo/logo (13).jpeg";
+import logo14 from "@/assets/logo/logo (14).jpeg";
+import logo15 from "@/assets/logo/logo (15).jpeg";
+import logo16 from "@/assets/logo/logo (16).jpeg";
+import logo17 from "@/assets/logo/logo (17).jpeg";
+import logo18 from "@/assets/logo/logo (18).jpeg";
+import logo19 from "@/assets/logo/logo (19).jpeg";
 
 export function HomePage() {
   return (
@@ -67,47 +85,7 @@ export function HomePage() {
 const AZURE = "#1D90FF";
 const OLIVE = "#0074D9"; // keep palette blue-dominant — secondary deep sky blue
 
-// function MagneticButton({
-//   to,
-//   children,
-// }: {
-//   to: string;
-//   children: React.ReactNode;
-// }) {
-//   const ref = useRef<HTMLAnchorElement>(null);
-//   const x = useMotionValue(0);
-//   const y = useMotionValue(0);
-//   const sx = useSpring(x, { stiffness: 200, damping: 15 });
-//   const sy = useSpring(y, { stiffness: 200, damping: 15 });
 
-//   const onMove = (e: React.MouseEvent) => {
-//     const r = ref.current?.getBoundingClientRect();
-//     if (!r) return;
-//     x.set((e.clientX - r.left - r.width / 2) * 0.35);
-//     y.set((e.clientY - r.top - r.height / 2) * 0.35);
-//   };
-//   const onLeave = () => {
-//     x.set(0);
-//     y.set(0);
-//   };
-
-//   return (
-//     <motion.div
-//       style={{ x: sx, y: sy }}
-//       onMouseMove={onMove}
-//       onMouseLeave={onLeave}
-//     >
-//       <Link
-//         ref={ref}
-//         to={to}
-//         className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold text-white shadow-[0_18px_40px_-12px_rgba(29,144,255,0.55)] group"
-//         style={{ background: `linear-gradient(135deg, ${AZURE}, ${OLIVE})` }}
-//       >
-//         {children}
-//       </Link>
-//     </motion.div>
-//   );
-// }
 
 function PhonePortal() {
   const phoneImages = [caseLaunch, caseExpo, caseMall];
@@ -249,61 +227,93 @@ function PhonePortal() {
 
 
 export default function TrustedBrandsPage() {
-  const topBrands = [
-    {
-      name: "Rapido",
-      logo: "https://i.pinimg.com/originals/6c/b2/bd/6cb2bd77e12b810fc259901b8b8c1738.png",
-      url: "https://www.rapido.bike",
-    },
-    {
-      name: "Blinkit",
-      logo: "https://i.pinimg.com/736x/36/7c/d4/367cd4a3a1510bf52f1acbea26228a57.jpg",
-      url: "https://blinkit.com",
-    },
-    {
-      name: "Swiggy",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/1/13/Swiggy_logo.png",
-      url: "https://www.swiggy.com",
-    },
-    {
-      name: "Flipkart",
-      logo: "https://cdn.freelogovectors.net/wp-content/uploads/2025/07/flipkart-logo-icon-freelogovectors.net_.png",
-      url: "https://www.flipkart.com",
-    },
-    {
-      name: "TVF",
-      logo: "https://static.iwmbuzz.com/wp-content/uploads/2019/05/this-is-how-the-the-viral-fever-tvf-went-viral.jpg",
-      url: "https://tvfplay.com",
-    },
-  ];
 
-  const bottomBrands = [
-    {
-      name: "Tata 1mg",
-      logo: "https://static.businessworld.in/Tata1mg%20-%20Logo_imresizer_20251203164548_ogImage_34.jpg",
-      url: "https://www.1mg.com",
-    },
-    {
-      name: "Godrej",
-      logo: "https://psfonttk.com/wp-content/uploads/2020/09/godrej-logo-hd-768x406.png",
-      url: "https://www.godrej.com",
-    },
-    {
-      name: "HDFC",
-      logo: "https://logodix.com/logo/840263.jpg",
-      url: "https://www.hdfcbank.com",
-    },
-    {
-      name: "Unacademy",
-      logo: "https://digitallearning.eletsonline.com/wp-content/uploads/2021/07/Edtech-company-Unacademy.jpg",
-      url: "https://unacademy.com",
-    },
-    {
-      name: "DCX",
-      logo: "https://cdn-sdotid.adg.id/images/c8a0ca37-312d-4c99-aa7f-d521ad2bee34_442x442.webp.jpeg",
-      url: "https://dcxindia.com",
-    },
-  ];
+
+const topBrands = [
+  {
+    name: "Rapido",
+    logo: logo1,
+  },
+  {
+    name: "Blinkit",
+    logo: logo2,
+  },
+  {
+    name: "Swiggy",
+    logo: logo3,
+  },
+  {
+    name: "Flipkart",
+    logo: logo4,
+  },
+  {
+    name: "TVF",
+    logo: logo5,
+  },
+  {
+    name: "Amazon",
+    logo: logo6,
+  },
+  {
+    name: "Netflix",
+    logo: logo7,
+  },
+  {
+    name: "Zomato",
+    logo: logo8,
+  },
+  {
+    name: "Uber",
+    logo: logo9,
+  },
+  {
+    name: "Google",
+    logo: logo10,
+  },
+ 
+  
+];
+
+
+
+const bottomBrands = [
+  {
+    name: "Tata 1mg",
+    logo: logo11,
+  },
+  {
+    name: "Godrej",
+    logo: logo12,
+  },
+  {
+    name: "HDFC",
+    logo: logo13,
+  },
+  {
+    name: "Unacademy",
+    logo: logo14,
+  },
+  {
+    name: "DCX",
+    logo: logo15,
+  },
+  {
+    name: "Brand 16",
+    logo: logo16,
+  },
+  {
+    name: "Brand 17",
+    logo: logo17,
+  },
+  {
+    name: "Brand 18",
+    logo: logo18,
+  },
+  {
+    name: "Brand 19",
+    logo: logo19,
+  },
+];
   const testimonials = [
     {
       name: "Rohit Malhotra",
@@ -449,7 +459,7 @@ export default function TrustedBrandsPage() {
                 {[...topBrands, ...topBrands].map((brand, index) => (
                   <a
                     key={index}
-                    href={brand.url}
+
                     target="_blank"
                     rel="noreferrer"
                     className="
@@ -469,18 +479,33 @@ export default function TrustedBrandsPage() {
                 hover:shadow-[0_18px_40px_rgba(59,130,246,0.18)]
               "
                   >
-                    <img
-                      src={brand.logo}
-                      alt={brand.name}
-                      className="
-                  h-8 sm:h-10 md:h-12
-                  w-auto
-                  object-contain
-                  opacity-80
-                  group-hover:opacity-100
-                  transition-all duration-300
-                "
-                    />
+<div className="flex h-20 items-center justify-center px-4">
+  <img
+    src={brand.logo}
+    alt={brand.name}
+    loading="lazy"
+    decoding="async"
+    className="
+      h-auto
+
+      max-h-10
+      sm:max-h-12
+      md:max-h-14
+
+      w-auto
+      max-w-full
+
+      object-contain
+
+      opacity-90
+
+      transition-all duration-300 ease-out
+
+      group-hover:scale-105
+      group-hover:opacity-100
+    "
+  />
+</div>
                   </a>
                 ))}
               </div>
@@ -494,7 +519,7 @@ export default function TrustedBrandsPage() {
                 {[...bottomBrands, ...bottomBrands].map((brand, index) => (
                   <a
                     key={index}
-                    href={brand.url}
+                   
                     target="_blank"
                     rel="noreferrer"
                     className="
@@ -514,18 +539,33 @@ export default function TrustedBrandsPage() {
                 hover:shadow-[0_18px_40px_rgba(132,204,22,0.18)]
               "
                   >
-                    <img
-                      src={brand.logo}
-                      alt={brand.name}
-                      className="
-                  h-8 sm:h-10 md:h-12
-                  w-auto
-                  object-contain
-                  opacity-80
-                  group-hover:opacity-100
-                  transition-all duration-300
-                "
-                    />
+ <div className="flex h-20 items-center justify-center px-4">
+  <img
+    src={brand.logo}
+    alt={brand.name}
+    loading="lazy"
+    decoding="async"
+    className="
+      h-auto
+
+      max-h-10
+      sm:max-h-12
+      md:max-h-14
+
+      w-auto
+      max-w-full
+
+      object-contain
+
+      opacity-90
+
+      transition-all duration-300 ease-out
+
+      group-hover:scale-105
+      group-hover:opacity-100
+    "
+  />
+</div>
                   </a>
                 ))}
               </div>

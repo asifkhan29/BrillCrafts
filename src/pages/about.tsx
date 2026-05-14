@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import BackgroundEffects from "./BackgroundEffects";
 import founderImg from "@/assets/Founder_Nafis.jpg";
+import { Helmet } from "react-helmet-async";
 /* ---------------- DATA (UNCHANGED) ---------------- */
 
 const stats = [
@@ -78,10 +79,151 @@ const timeline = [
 
 export default function About() {
   return (
+    <>
+     <Helmet>
+  {/* TITLE */}
+  <title>
+    About Brill Crafts | Brand Activation & Experiential Marketing Company
+  </title>
+
+  {/* BASIC SEO */}
+  <meta charSet="utf-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  />
+
+  <meta
+    name="description"
+    content="Brill Crafts is a leading experiential marketing and brand activation company in Mumbai specializing in exhibitions, events, retail branding, merchandising, and immersive offline campaigns."
+  />
+
+  <meta
+    name="keywords"
+    content="Brill Crafts, experiential marketing, brand activation, exhibition design, event production, BTL marketing, retail branding, Mumbai branding company"
+  />
+
+  <meta
+    name="author"
+    content="Brill Crafts"
+  />
+
+  <meta
+    name="robots"
+    content="index, follow"
+  />
+
+  {/* CANONICAL */}
+  <link
+    rel="canonical"
+    href="https://www.brillcrafts.in/about"
+  />
+
+  {/* OPEN GRAPH */}
+  <meta
+    property="og:type"
+    content="website"
+  />
+
+  <meta
+    property="og:title"
+    content="About Brill Crafts | Experiential Marketing Company"
+  />
+
+  <meta
+    property="og:description"
+    content="Brill Crafts creates immersive brand activations, exhibitions, retail branding, and experiential campaigns across India."
+  />
+
+  <meta
+    property="og:url"
+    content="https://www.brillcrafts.in/about"
+  />
+
+  <meta
+    property="og:image"
+    content="https://www.brillcrafts.in/logo.png"
+  />
+
+  <meta
+    property="og:site_name"
+    content="Brill Crafts"
+  />
+
+  {/* TWITTER SEO */}
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  />
+
+  <meta
+    name="twitter:title"
+    content="About Brill Crafts"
+  />
+
+  <meta
+    name="twitter:description"
+    content="Leading experiential marketing and brand activation company in India."
+  />
+
+  <meta
+    name="twitter:image"
+    content="https://www.brillcrafts.in/logo.png"
+  />
+
+  {/* MOBILE THEME */}
+  <meta
+    name="theme-color"
+    content="#0f172a"
+  />
+
+  {/* GEO TAGS */}
+  <meta
+    name="geo.region"
+    content="IN-MH"
+  />
+
+  <meta
+    name="geo.placename"
+    content="Mumbai"
+  />
+</Helmet>
     <div className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white text-[var(--obsidian)]">
 
       {/* GLOBAL BACKGROUND */}
       <BackgroundEffects />
+      <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Brill Crafts",
+      url: "https://www.brillcrafts.com",
+      logo: "https://www.brillcrafts.com/logo.png",
+      description:
+        "Brill Crafts is a leading experiential marketing and brand activation company specializing in exhibitions, events, branding, merchandising, and immersive offline experiences.",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Mumbai",
+        addressRegion: "Maharashtra",
+        addressCountry: "India",
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+91-7506839909",
+        contactType: "customer service",
+        areaServed: "IN",
+        availableLanguage: "English",
+      },
+      sameAs: [
+        "https://www.instagram.com/",
+        "https://www.linkedin.com/company/brill-crafts/",
+      ],
+    }),
+  }}
+/>
 {/* HERO */}
 <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
 
@@ -1420,176 +1562,152 @@ export default function About() {
       </p>
     </div>
 
-    {/* TEAM GRID */}
-    <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-      {[
-        {
-          name: "Ayaan Khan",
-          role: "Creative Director",
-          image: "/team/team1.jpg",
-        },
-        {
-          name: "Sara Ali",
-          role: "Brand Strategist",
-          image: "/team/team2.jpg",
-        },
-        {
-          name: "Rahul Verma",
-          role: "3D Visualizer",
-          image: "/team/team3.jpg",
-        },
-        {
-          name: "Fatima Noor",
-          role: "Production Lead",
-          image: "/team/team4.jpg",
-        },
-      ].map((member, index) => (
-        <motion.div
-          key={member.name}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{
-            duration: 0.6,
-            delay: index * 0.12,
-          }}
-          whileHover={{
-            y: -10,
-          }}
+  {/* TEAM GRID */}
+<div className="mt-16 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+{[
+  {
+    name: "Ayaan Khan",
+    role: "Creative Director",
+    image: "/team/team1.jpg",
+    desc: "Transforms bold ideas into immersive visual stories that connect brands with audiences emotionally.",
+  },
+  {
+    name: "Sara Ali",
+    role: "Brand Strategist",
+    image: "/team/team2.jpg",
+    desc: "Builds impactful brand strategies focused on engagement, innovation, and memorable customer experiences.",
+  },
+  {
+    name: "Rahul Verma",
+    role: "3D Visualizer",
+    image: "/team/team3.jpg",
+    desc: "Creates realistic 3D concepts and experiential designs that bring creative visions to life.",
+  },
+  {
+    name: "Fatima Noor",
+    role: "Production Lead",
+    image: "/team/team4.jpg",
+    desc: "Ensures flawless execution of projects with precision, coordination, and premium production quality.",
+  },
+].map((member, index) => (
+    <motion.div
+      key={member.name}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{
+        duration: 0.55,
+        delay: index * 0.1,
+      }}
+      whileHover={{
+        y: -6,
+      }}
+      className="
+        group relative overflow-hidden
+
+        rounded-[2rem]
+
+        border border-[#D9D9D9]
+
+        bg-[#F7F7F7]
+
+        p-3
+
+        shadow-[0_2px_8px_rgba(0,0,0,0.04)]
+
+        transition-all duration-300
+
+        hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]
+      "
+    >
+      {/* IMAGE */}
+      <div
+        className="
+          relative overflow-hidden
+
+          rounded-[1.4rem]
+
+          h-[260px]
+        "
+      >
+        <img
+          src={member.image}
+          alt={member.name}
           className="
-            group relative overflow-hidden
+            h-full w-full object-cover
 
-            rounded-[2rem]
+            transition-transform duration-700
+            group-hover:scale-105
+          "
+        />
 
-            border border-slate-200/80
+    
+      </div>
 
-            bg-white/80
-            backdrop-blur-2xl
+      {/* CONTENT */}
+      <div className="px-2 pb-3 pt-5">
+        {/* META */}
+        <div className="flex items-center gap-2">
+        
 
-            shadow-[0_20px_60px_rgba(15,23,42,0.08)]
+      
+          
+        
+          </div>
 
-            transition-all duration-500
 
-            hover:border-[var(--sky)]/30
-            hover:shadow-[0_25px_80px_rgba(29,144,255,0.12)]
+        {/* TITLE */}
+        <h3
+          className="
+            mt-4
+
+            text-[1.9rem]
+            leading-[1.15]
+
+            font-black
+
+            tracking-[-0.03em]
+
+            text-[#1A1A1A]
           "
         >
-          {/* SHINE */}
-          <div
-            className="
-              absolute inset-0
-              bg-gradient-to-br
-              from-white/30
-              via-transparent
-              to-transparent
-              opacity-70
-              pointer-events-none
-            "
-          />
+          {member.name}
+        </h3>
 
-          {/* IMAGE */}
-          <div className="relative overflow-hidden h-[340px]">
-            <img
-              src={member.image}
-              alt={member.name}
-              className="
-                h-full w-full object-cover
+        {/* ROLE */}
+        <p
+          className="
+            mt-2
 
-                transition-transform duration-700
-                group-hover:scale-110
-              "
-            />
+            text-base
+            font-semibold
 
-            {/* OVERLAY */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+            text-black/65
+          "
+        >
+          {member.role}
+        </p>
 
-            {/* SOCIAL ICONS */}
-            <div
-              className="
-                absolute top-5 right-5
+        {/* DESC */}
+<p
+  className="
+    mt-4
 
-                flex gap-2
+    text-sm
+    leading-relaxed
 
-                opacity-0
-                translate-y-3
-
-                transition-all duration-500
-
-                group-hover:opacity-100
-                group-hover:translate-y-0
-              "
-            >
-              {[Instagram, Linkedin].map((Icon, i) => (
-                <div
-                  key={i}
-                  className="
-                    flex h-10 w-10 items-center justify-center
-
-                    rounded-full
-
-                    border border-white/20
-                    bg-white/10
-
-                    text-white
-                    backdrop-blur-xl
-
-                    transition-all duration-300
-
-                    hover:bg-white
-                    hover:text-[var(--sky)]
-                  "
-                >
-                  <Icon size={16} />
-                </div>
-              ))}
-            </div>
-
-            {/* INFO */}
-            <div className="absolute bottom-6 left-6 right-6">
-              <h3 className="text-2xl font-black text-white">
-                {member.name}
-              </h3>
-
-              <p
-                className="
-                  mt-2
-
-                  text-[11px]
-                  sm:text-xs
-
-                  font-semibold
-                  uppercase
-
-                  tracking-[0.18em]
-
-                  text-white/70
-                "
-              >
-                {member.role}
-              </p>
-            </div>
-          </div>
-
-          {/* BOTTOM */}
-          <div className="relative z-10 p-6">
-            <p
-              className="
-                text-sm leading-relaxed
-                text-[var(--obsidian)]/65
-              "
-            >
-              Passionate about delivering impactful creative
-              experiences through innovation, storytelling, and
-              premium execution.
-            </p>
-
-         
-          </div>
-        </motion.div>
-      ))}
-    </div>
+    text-black/55
+  "
+>
+  {member.desc}
+</p>
+      </div>
+    </motion.div>
+  ))}
+</div>
   </div>
 </motion.section>
     </div>
+    </>
   );
 }

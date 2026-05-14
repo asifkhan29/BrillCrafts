@@ -9,218 +9,572 @@ import {
   Building2,
 } from "lucide-react";
 
-const SPHERE_TEXTS = ["Bill Craft", "Marketing", "Excellence"];
-
-
-const AZURE = "#1D90FF";
-const MINT = "#0074D9";
-
-const SERVICES = [
-  { Icon: TrainFront, label: "Metro Branding", phrase: "Wrapping Metro Corridors" },
-  { Icon: Tent, label: "Event Booths", phrase: "Engineering Brand Touchpoints" },
-  { Icon: ShoppingBag, label: "Premium Swag", phrase: "Crafting Premium Swag" },
-  { Icon: Megaphone, label: "Launches", phrase: "Orchestrating Launches" },
-  { Icon: Store, label: "Retail Branding", phrase: "Dressing Retail Floors" },
-  { Icon: Building2, label: "RWAs & Malls", phrase: "Activating 1000+ RWAs" },
+const SPHERE_TEXTS = [
+  "Brill Crafts",
+  "Marketing",
+  "Excellence",
 ];
 
-export function LoadingScreen({ onDone }: { onDone: () => void }) {
+const AZURE = "#1D90FF";
+const MINT = "#00C2A8";
+
+const SERVICES = [
+  {
+    Icon: TrainFront,
+    label: "Metro Branding",
+    phrase: "Wrapping Metro Corridors",
+  },
+  {
+    Icon: Tent,
+    label: "Event Booths",
+    phrase: "Engineering Brand Touchpoints",
+  },
+  {
+    Icon: ShoppingBag,
+    label: "Premium Swag",
+    phrase: "Crafting Premium Swag",
+  },
+  {
+    Icon: Megaphone,
+    label: "Launches",
+    phrase: "Orchestrating Launches",
+  },
+  {
+    Icon: Store,
+    label: "Retail Branding",
+    phrase: "Dressing Retail Floors",
+  },
+  {
+    Icon: Building2,
+    label: "RWAs & Malls",
+    phrase: "Activating 1000+ RWAs",
+  },
+];
+
+export function LoadingScreen({
+  onDone,
+}: {
+  onDone: () => void;
+}) {
   const [progress, setProgress] = useState(0);
   const [textIdx, setTextIdx] = useState(0);
   const [activeIdx, setActiveIdx] = useState(0);
   const [exiting, setExiting] = useState(false);
 
-  // Smooth Progress Logic using rAF
+  /* PROGRESS */
   useEffect(() => {
     const start = performance.now();
-    const dur = 4200;
+    const duration = 4200;
+
     let raf = 0;
-    const tick = (t: number) => {
-      const p = Math.min(1, (t - start) / dur);
-      setProgress(p * 100);
-      if (p < 1) raf = requestAnimationFrame(tick);
-      else setTimeout(() => setExiting(true), 400);
+
+    const animate = (time: number) => {
+      const pct = Math.min(
+        (time - start) / duration,
+        1
+      );
+
+      setProgress(pct * 100);
+
+      if (pct < 1) {
+        raf = requestAnimationFrame(animate);
+      } else {
+        setTimeout(() => {
+          setExiting(true);
+        }, 400);
+      }
     };
-    raf = requestAnimationFrame(tick);
+
+    raf = requestAnimationFrame(animate);
+
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  // Interval Logic
+  /* TEXT ROTATION */
   useEffect(() => {
-    const id = setInterval(() => setTextIdx((i) => (i + 1) % SPHERE_TEXTS.length), 1100);
-    const activeId = setInterval(() => setActiveIdx((i) => (i + 1) % SERVICES.length), 800);
-    return () => { clearInterval(id); clearInterval(activeId); };
+    const id = setInterval(() => {
+      setTextIdx(
+        (prev) => (prev + 1) % SPHERE_TEXTS.length
+      );
+    }, 1200);
+
+    return () => clearInterval(id);
   }, []);
 
+  /* ACTIVE SERVICE */
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveIdx(
+        (prev) => (prev + 1) % SERVICES.length
+      );
+    }, 850);
+
+    return () => clearInterval(id);
+  }, []);
+
+  /* EXIT */
   useEffect(() => {
     if (exiting) {
-      const t = setTimeout(onDone, 850);
+      const t = setTimeout(() => {
+        onDone();
+      }, 800);
+
       return () => clearTimeout(t);
     }
   }, [exiting, onDone]);
 
-  const radiusPct = 42; 
-  const stageSize = "min(90vw, 75vh, 560px)";
+  const radius = 42;
+  const stageSize = "min(88vw, 72vh, 540px)";
 
   return (
     <AnimatePresence>
       {!exiting && (
         <motion.div
-          key="loader"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-white"
+          className="
+            fixed inset-0 z-[9999]
+
+            flex items-center justify-center
+
+            overflow-hidden
+
+            bg-white
+          "
         >
-          {/* Soft Background Ambience */}
-          <div className="absolute inset-0 pointer-events-none z-0">
-            <motion.div 
-              animate={{ 
-                scale: [1, 1.1, 1],
-                opacity: [0.4, 0.6, 0.4] 
+          {/* BACKGROUND GLOW */}
+          <div className="absolute inset-0 overflow-hidden">
+            <motion.div
+              animate={{
+                scale: [1, 1.15, 1],
+                opacity: [0.35, 0.55, 0.35],
               }}
-              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-              className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-blue-50 rounded-full blur-[100px]" 
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="
+                absolute
+
+                left-[-10%]
+                top-[10%]
+
+                h-[420px]
+                w-[420px]
+
+                rounded-full
+
+                bg-blue-100
+
+                blur-[120px]
+              "
             />
-            <motion.div 
-              animate={{ 
+
+            <motion.div
+              animate={{
                 scale: [1, 1.2, 1],
-                opacity: [0.3, 0.5, 0.3] 
+                opacity: [0.25, 0.45, 0.25],
               }}
-              transition={{ duration: 10, repeat: Infinity, ease: "linear", delay: 2 }}
-              className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-emerald-50 rounded-full blur-[120px]" 
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="
+                absolute
+
+                bottom-[-10%]
+                right-[-10%]
+
+                h-[520px]
+                w-[520px]
+
+                rounded-full
+
+                bg-emerald-100
+
+                blur-[140px]
+              "
             />
           </div>
 
-          {/* Scale Out Radial Reveal (Wipe) */}
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={exiting ? { scale: 100 } : { scale: 0 }}
-            transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-            className="absolute z-[10000] w-20 h-20 bg-white rounded-full pointer-events-none"
-          />
+          {/* CONTENT */}
+          <div className="relative z-10 flex flex-col items-center">
+            {/* STAGE */}
+            <div
+              className="relative"
+              style={{
+                width: stageSize,
+                height: stageSize,
+              }}
+            >
+              {/* OUTER RING */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{
+                  duration: 18,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                className="
+                  absolute inset-0
 
-          <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
-            <div className="relative flex items-center justify-center" style={{ width: stageSize, height: stageSize }}>
-              
-              {/* ORBITAL PATHS (Dashed Tech Rings) */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <svg width="100%" height="100%" className="absolute opacity-10">
-                  <circle cx="50%" cy="50%" r={`${radiusPct}%`} fill="none" stroke="#1D90FF" strokeWidth="1" strokeDasharray="5 10" />
-                  <circle cx="50%" cy="50%" r={`${radiusPct + 8}%`} fill="none" stroke="#34D399" strokeWidth="0.5" strokeDasharray="100 20" />
-                </svg>
-              </div>
+                  rounded-full
 
-              {/* STAGGERED SERVICES */}
+                  border border-slate-200/70
+                "
+              />
+
+              {/* SECOND RING */}
+              <motion.div
+                animate={{ rotate: -360 }}
+                transition={{
+                  duration: 26,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                className="
+                  absolute inset-[8%]
+
+                  rounded-full
+
+                  border border-slate-100
+                "
+              />
+
+              {/* SERVICES */}
               {SERVICES.map((s, i) => {
-                const angle = (i / SERVICES.length) * Math.PI * 2 - Math.PI / 2;
-                const x = 50 + Math.cos(angle) * radiusPct;
-                const y = 50 + Math.sin(angle) * radiusPct;
-                const isActive = i === activeIdx;
+                const angle =
+                  (i / SERVICES.length) *
+                    Math.PI *
+                    2 -
+                  Math.PI / 2;
+
+                const x =
+                  50 +
+                  Math.cos(angle) * radius;
+
+                const y =
+                  50 +
+                  Math.sin(angle) * radius;
+
+                const active =
+                  i === activeIdx;
 
                 return (
                   <motion.div
                     key={s.label}
-                    initial={{ scale: 0, opacity: 0, x: "-50%", y: "-50%", left: "50%", top: "50%" }}
-                    animate={{ scale: 1, opacity: 1, left: `${x}%`, top: `${y}%` }}
+                    initial={{
+                      opacity: 0,
+                      scale: 0,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      left: `${x}%`,
+                      top: `${y}%`,
+                    }}
                     transition={{
-                      delay: 0.2 + i * 0.12,
+                      delay: i * 0.08,
                       type: "spring",
                       stiffness: 120,
-                      damping: 18
+                      damping: 14,
                     }}
-                    className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2"
+                    className="
+                      absolute
+
+                      -translate-x-1/2
+                      -translate-y-1/2
+
+                      flex flex-col items-center
+                    "
                   >
                     <motion.div
-                      animate={isActive ? { scale: 1.25, boxShadow: `0 20px 40px -10px #1D90FF55` } : { scale: 1, boxShadow: "0 4px 12px rgba(0,0,0,0.03)" }}
-                      className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center bg-white border transition-colors duration-500 ${isActive ? 'border-[#1D90FF]' : 'border-slate-100'}`}
+                      animate={
+                        active
+                          ? {
+                              scale: 1.15,
+                            }
+                          : {
+                              scale: 1,
+                            }
+                      }
+                      className={`
+                        relative
+
+                        flex items-center justify-center
+
+                        h-14 w-14
+                        sm:h-16 sm:w-16
+
+                        rounded-2xl
+
+                        border
+
+                        bg-white
+
+                        shadow-lg
+
+                        transition-all duration-500
+
+                        ${
+                          active
+                            ? "border-[#1D90FF]"
+                            : "border-slate-200"
+                        }
+                      `}
                     >
-                      <s.Icon 
-                        className={`w-7 h-7 transition-colors duration-500 ${isActive ? 'text-[#1D90FF]' : 'text-slate-400'}`} 
-                        strokeWidth={isActive ? 2.5 : 1.5}
-                      />
-                      {isActive && (
-                         <motion.div 
-                          layoutId="pulse"
-                          className="absolute inset-0 rounded-2xl border-2 border-[#1D90FF] animate-pulse"
-                         />
+                      {/* ACTIVE GLOW */}
+                      {active && (
+                        <motion.div
+                          layoutId="activeGlow"
+                          className="
+                            absolute inset-0
+
+                            rounded-2xl
+
+                            bg-blue-500/10
+                          "
+                        />
                       )}
+
+                      <s.Icon
+                        className={`
+                          relative z-10
+
+                          transition-all duration-500
+
+                          ${
+                            active
+                              ? "text-[#1D90FF]"
+                              : "text-slate-400"
+                          }
+                        `}
+                        size={28}
+                        strokeWidth={
+                          active ? 2.4 : 1.8
+                        }
+                      />
                     </motion.div>
-                    <span className={`text-[10px] sm:text-[11px] font-black uppercase tracking-widest transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-40'}`}>
+
+                    <span
+                      className={`
+                        mt-2
+
+                        text-[9px]
+                        sm:text-[10px]
+
+                        font-black
+
+                        uppercase
+
+                        tracking-[0.2em]
+
+                        transition-all duration-500
+
+                        ${
+                          active
+                            ? "text-slate-700 opacity-100"
+                            : "text-slate-400 opacity-50"
+                        }
+                      `}
+                    >
                       {s.label}
                     </span>
                   </motion.div>
                 );
               })}
 
-              {/* CORE SPHERE ENGINE */}
+              {/* CENTER SOLID SPHERE */}
               <motion.div
-                className="relative z-20 flex items-center justify-center"
-                style={{ width: "32%", height: "32%" }}
+                animate={{
+                  scale: [1, 1.03, 1],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="
+                  absolute left-1/2 top-1/2
+
+                  z-20
+
+                  flex items-center justify-center
+
+                  h-[170px] w-[170px]
+                  sm:h-[210px] sm:w-[210px]
+
+                  -translate-x-1/2
+                  -translate-y-1/2
+                "
               >
-                {/* Rotating Border */}
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                  className="absolute inset-[-4px] rounded-full"
-                  style={{ 
-  width: `${progress}%`, // Added comma here
-  background: `linear-gradient(90deg, ${AZURE}, ${MINT})`, // Use variable names, not # hex here
-  boxShadow: "0 0 10px rgba(29,144,255,0.4)"
-}}
+                {/* SOLID GRADIENT CIRCLE */}
+                <div
+                  className="
+                    absolute inset-0
+
+                    rounded-full
+
+                    shadow-[0_25px_80px_rgba(29,144,255,0.25)]
+                  "
+                  style={{
+                    background: `linear-gradient(135deg, ${AZURE}, ${MINT})`,
+                  }}
                 />
 
-                {/* Glass Inner Core */}
-                <motion.div
-                  className="w-full h-full rounded-full bg-white shadow-2xl flex items-center justify-center overflow-hidden border border-slate-50"
-                  style={{
-                    background: "radial-gradient(circle at 30% 20%, white 0%, #F1F9FF 100%)"
-                  }}
+                {/* INNER GLASS */}
+                <div
+                  className="
+                    relative z-10
+
+                    flex h-[82%] w-[82%]
+                    items-center justify-center
+
+                    rounded-full
+
+                    bg-white/92
+
+                    backdrop-blur-xl
+
+                    shadow-inner
+                  "
                 >
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={textIdx}
-                      initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -10, scale: 1.1 }}
-                      transition={{ duration: 0.4 }}
+                      initial={{
+                        opacity: 0,
+                        y: 10,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      exit={{
+                        opacity: 0,
+                        y: -10,
+                      }}
+                      transition={{
+                        duration: 0.35,
+                      }}
                       className="text-center px-4"
                     >
-                      <p className="text-[9px] uppercase tracking-[0.3em] font-black text-[#1D90FF] mb-1">Bill Craft</p>
-                      <h3 className="text-sm md:text-lg font-black leading-tight text-slate-800 tracking-tighter">
-                        {SPHERE_TEXTS[textIdx].toUpperCase()}
-                      </h3>
+                      <p
+                        className="
+                          text-[9px]
+
+                          font-black
+
+                          uppercase
+
+                          tracking-[0.3em]
+
+                          text-[#1D90FF]
+                        "
+                      >
+                        Brill Crafts
+                      </p>
+
+                      <h2
+                        className="
+                          mt-2
+
+                          text-lg
+                          sm:text-2xl
+
+                          font-black
+
+                          leading-tight
+
+                          tracking-tight
+
+                          text-slate-800
+                        "
+                      >
+                        {
+                          SPHERE_TEXTS[
+                            textIdx
+                          ]
+                        }
+                      </h2>
                     </motion.div>
                   </AnimatePresence>
-                </motion.div>
+                </div>
               </motion.div>
             </div>
 
-            {/* PROGRESS SECTION */}
-            <div className="mt-12 w-full max-w-sm px-8">
-              <div className="relative mb-3 flex items-center justify-between">
+            {/* PROGRESS */}
+            <div className="mt-12 w-[320px] max-w-[90vw]">
+              <div className="mb-3 flex items-center justify-between">
                 <AnimatePresence mode="wait">
                   <motion.p
                     key={activeIdx}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 10 }}
-                    className="text-[10px] font-black uppercase tracking-widest text-slate-500"
+                    initial={{
+                      opacity: 0,
+                      x: -10,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      x: 10,
+                    }}
+                    className="
+                      text-[10px]
+
+                      font-black
+
+                      uppercase
+
+                      tracking-[0.5em]
+
+                      text-slate-500
+                    "
                   >
-                    {SERVICES[activeIdx].phrase}
+                    {
+                      SERVICES[
+                        activeIdx
+                      ].phrase
+                    }
                   </motion.p>
                 </AnimatePresence>
-                <span className="text-[10px] font-black text-[#1D90FF]">{Math.floor(progress)}%</span>
+
+                <span
+                  className="
+                    text-[10px]
+
+                    font-black
+
+                    text-[#1D90FF]
+                  "
+                >
+                  {Math.floor(progress)}%
+                </span>
               </div>
-              
-              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden border border-slate-50">
+
+              {/* BAR */}
+              <div
+                className="
+                  h-2
+
+                  overflow-hidden
+
+                  rounded-full
+
+                  bg-slate-100
+                "
+              >
                 <motion.div
                   className="h-full rounded-full"
                   style={{
-  background: `conic-gradient(from 0deg, ${AZURE}, ${MINT}, transparent, ${AZURE})`, // Use variable names
-  mask: "radial-gradient(circle, transparent 65%, black 70%)",
-  WebkitMask: "radial-gradient(circle, transparent 65%, black 70%)",
-}}
+                    width: `${progress}%`,
+                    background: `linear-gradient(90deg, ${AZURE}, ${MINT})`,
+                  }}
                 />
               </div>
             </div>

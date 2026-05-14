@@ -1,7 +1,8 @@
+import { useMemo } from "react";
 import BackgroundEffects from "@/pages/BackgroundEffects";
 import { PageTransition } from "@/components/PageTransition";
 import { motion } from "framer-motion";
-import { ArrowRight, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 
 const products = [
   {
@@ -42,10 +43,13 @@ const products = [
   },
 ];
 
-/* ONLY DOUBLE FOR SMOOTH LOOP */
-const infiniteProducts = [...products, ...products];
-
 export function ProductSlider() {
+  /* TRIPLE ARRAY FOR PERFECT LOOP */
+  const infiniteProducts = useMemo(
+    () => [...products, ...products, ...products],
+    []
+  );
+
   return (
     <PageTransition>
       <section className="relative w-full overflow-hidden bg-[#FCFDFF] py-20 sm:py-24">
@@ -73,13 +77,9 @@ export function ProductSlider() {
                     className="
                       text-[10px]
                       sm:text-xs
-
                       font-black
-
                       uppercase
-
                       tracking-[0.28em]
-
                       text-emerald-500
                     "
                   >
@@ -92,12 +92,9 @@ export function ProductSlider() {
                     text-4xl
                     sm:text-5xl
                     lg:text-6xl
-
                     font-black
-
                     leading-[0.95]
                     tracking-tight
-
                     text-slate-900
                   "
                 >
@@ -107,7 +104,6 @@ export function ProductSlider() {
                       bg-gradient-to-r
                       from-blue-500
                       to-emerald-400
-
                       bg-clip-text
                       text-transparent
                     "
@@ -119,15 +115,11 @@ export function ProductSlider() {
                 <p
                   className="
                     mt-5
-
                     max-w-xl
-
                     text-sm
                     sm:text-base
-
                     font-semibold
                     leading-relaxed
-
                     text-slate-500
                   "
                 >
@@ -145,19 +137,12 @@ export function ProductSlider() {
                 }}
                 className="
                   hidden md:flex
-
                   items-center gap-3
-
                   rounded-2xl
-
                   border border-slate-200/70
-
                   bg-white/80
-
                   px-6 py-3
-
                   backdrop-blur-xl
-
                   shadow-[0_10px_30px_rgba(15,23,42,0.05)]
                 "
               >
@@ -173,26 +158,25 @@ export function ProductSlider() {
             </div>
           </div>
 
-          {/* MARQUEE */}
+          {/* SLIDER */}
           <div className="relative overflow-hidden">
             <motion.div
               className="
-                marquee-track
-
                 flex w-max
-
                 gap-5
                 sm:gap-7
-
                 px-4 sm:px-6
               "
               animate={{
-                x: ["0%", "-50%"],
+                x: [0, -2028],
               }}
               transition={{
-                duration: 28,
-                ease: "linear",
-                repeat: Infinity,
+                x: {
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 22,
+                  ease: "linear",
+                },
               }}
               style={{
                 willChange: "transform",
@@ -200,7 +184,7 @@ export function ProductSlider() {
             >
               {infiniteProducts.map((item, idx) => (
                 <motion.div
-                  key={idx}
+                  key={`${item.name}-${idx}`}
                   whileHover={{
                     y: -8,
                     scale: 1.015,
@@ -210,6 +194,7 @@ export function ProductSlider() {
                   }}
                   className="
                     group relative
+                    transform-gpu
 
                     flex shrink-0 flex-col
 
@@ -230,7 +215,6 @@ export function ProductSlider() {
                     transition-all duration-500
 
                     hover:border-emerald-300/40
-                    hover:shadow-[0_20px_50px_rgba(29,144,255,0.12)]
                   "
                 >
                   {/* IMAGE */}
@@ -238,8 +222,9 @@ export function ProductSlider() {
                     className="
                       relative overflow-hidden
 
-                      h-[200px]
-                      sm:h-[230px]
+                      h-[240px]
+                      sm:h-[300px]
+                      md:h-[340px]
                     "
                   >
                     <img
@@ -249,10 +234,9 @@ export function ProductSlider() {
                       decoding="async"
                       className="
                         h-full w-full object-cover
-
                         transition-transform duration-700
-
                         group-hover:scale-105
+                        transform-gpu
                       "
                     />
 
@@ -263,28 +247,18 @@ export function ProductSlider() {
                     <div
                       className="
                         absolute left-4 top-4
-
                         rounded-full
-
                         bg-white/90
-
                         px-3 py-1.5
-
-                        backdrop-blur-md
-
-                        shadow-sm
+                       
                       "
                     >
                       <span
                         className="
                           text-[9px]
-
                           font-black
-
                           uppercase
-
                           tracking-[0.18em]
-
                           text-emerald-600
                         "
                       >
@@ -296,106 +270,35 @@ export function ProductSlider() {
                   {/* CONTENT */}
                   <div className="flex flex-1 flex-col justify-between p-5">
                     <div>
-                      <h4
-                        className="
-                          text-xl
-                          sm:text-2xl
+                      {/* TITLE + SOLD */}
+                      <div className="flex items-start justify-between gap-3">
+                        <h4
+                          className="
+                            text-xl
+                            sm:text-2xl
+                            font-black
+                            text-slate-800
+                            transition-colors duration-300
+                            group-hover:text-blue-600
+                          "
+                        >
+                          {item.name}
+                        </h4>
 
-                          font-black
-
-                          text-slate-800
-
-                          transition-colors duration-300
-
-                          group-hover:text-blue-600
-                        "
-                      >
-                        {item.name}
-                      </h4>
+                       
+                      </div>
 
                       <p
                         className="
-                          mt-2
-
+                          mt-3
                           text-sm
-
                           font-medium
-
+                          leading-relaxed
                           text-slate-400
                         "
                       >
                         {item.desc}
                       </p>
-                    </div>
-
-                    {/* FOOTER */}
-                    <div className="mt-7 flex items-center justify-between">
-                      {/* USERS */}
-                      <div className="flex items-center">
-                        <div className="flex -space-x-2">
-                          {[1, 2, 3].map((i) => (
-                            <div
-                              key={i}
-                              className="
-                                flex h-7 w-7 items-center justify-center
-
-                                rounded-full
-
-                                border-2 border-white
-
-                                bg-slate-100
-
-                                text-[9px]
-                                font-black
-
-                                text-slate-700
-                              "
-                            >
-                              {String.fromCharCode(64 + i)}
-                            </div>
-                          ))}
-                        </div>
-
-                        <span
-                          className="
-                            ml-4
-
-                            text-[10px]
-
-                            font-black
-
-                            uppercase
-
-                            tracking-[0.18em]
-
-                            text-slate-400
-                          "
-                        >
-                          +1k Sold
-                        </span>
-                      </div>
-
-                      {/* DETAILS */}
-                      <motion.div
-                        whileHover={{ x: 3 }}
-                        className="
-                          flex items-center gap-1.5
-
-                          cursor-pointer
-
-                          text-[10px]
-
-                          font-black
-
-                          uppercase
-
-                          tracking-[0.16em]
-
-                          text-emerald-500
-                        "
-                      >
-                        Details <ArrowRight size={13} />
-                      </motion.div>
                     </div>
                   </div>
 
@@ -403,15 +306,10 @@ export function ProductSlider() {
                   <div
                     className="
                       pointer-events-none
-
                       absolute inset-0
-
                       rounded-[1.8rem]
-
                       border border-transparent
-
                       transition-all duration-500
-
                       group-hover:border-emerald-300/30
                     "
                   />
@@ -423,8 +321,8 @@ export function ProductSlider() {
             <div
               className="
                 pointer-events-none
-
                 absolute inset-y-0 left-0
+                z-10
 
                 w-16
                 sm:w-24
@@ -433,8 +331,6 @@ export function ProductSlider() {
                 bg-gradient-to-r
                 from-[#FCFDFF]
                 to-transparent
-
-                z-10
               "
             />
 
@@ -442,8 +338,8 @@ export function ProductSlider() {
             <div
               className="
                 pointer-events-none
-
                 absolute inset-y-0 right-0
+                z-10
 
                 w-16
                 sm:w-24
@@ -452,8 +348,6 @@ export function ProductSlider() {
                 bg-gradient-to-l
                 from-[#FCFDFF]
                 to-transparent
-
-                z-10
               "
             />
           </div>
@@ -463,12 +357,9 @@ export function ProductSlider() {
             <div
               className="
                 flex flex-wrap justify-center
-
                 gap-x-10
                 gap-y-6
-
                 px-6
-
                 opacity-70
               "
             >
@@ -491,13 +382,9 @@ export function ProductSlider() {
                   <span
                     className="
                       text-[10px]
-
                       font-black
-
                       uppercase
-
                       tracking-[0.28em]
-
                       text-slate-600
                     "
                   >

@@ -1,7 +1,7 @@
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { PageTransition } from "@/components/PageTransition";
-import { SectionHeader } from "../pages/index";
 import { services } from "@/lib/site";
 import { Link } from "react-router-dom";
 import BackgroundEffects from "./BackgroundEffects";
@@ -11,6 +11,98 @@ export function ServicesPage() {
 
   return (
     <PageTransition>
+
+      {/* SEO */}
+      <Helmet>
+        <title>
+          Brand Activation Services Mumbai | Retail Branding & Production | Brill Crafts
+        </title>
+
+        <meta
+          name="description"
+          content="Explore Brill Crafts services including brand activations, retail branding, fabrication, event production, mall activations, kiosk design, outdoor branding and experiential marketing solutions across India."
+        />
+
+        <meta
+          name="keywords"
+          content="brand activation agency Mumbai, retail branding company India, experiential marketing, event production, mall activation agency, kiosk branding, fabrication services, outdoor branding, BTL marketing agency"
+        />
+
+        <meta name="author" content="Brill Crafts" />
+        <meta name="robots" content="index, follow" />
+
+        {/* Open Graph */}
+        <meta
+          property="og:title"
+          content="Brill Crafts Services | Brand Activations & Retail Branding"
+        />
+
+        <meta
+          property="og:description"
+          content="From activations to production and retail branding, Brill Crafts creates impactful brand experiences across India."
+        />
+
+        <meta property="og:type" content="website" />
+
+        <meta
+          property="og:url"
+          content="https://brillcrafts.com/services"
+        />
+
+        <meta
+          property="og:image"
+          content="https://brillcrafts.com/og-services.jpg"
+        />
+
+        {/* Twitter */}
+        <meta
+          name="twitter:card"
+          content="summary_large_image"
+        />
+
+        <meta
+          name="twitter:title"
+          content="Brill Crafts Services"
+        />
+
+        <meta
+          name="twitter:description"
+          content="Explore premium brand activation, retail branding and production services by Brill Crafts."
+        />
+
+        <meta
+          name="twitter:image"
+          content="https://brillcrafts.com/og-services.jpg"
+        />
+
+        {/* Canonical */}
+        <link
+          rel="canonical"
+          href="https://brillcrafts.com/services"
+        />
+
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            serviceType: "Brand Activation & Retail Branding",
+            provider: {
+              "@type": "Organization",
+              name: "Brill Crafts",
+              url: "https://brillcrafts.com",
+              logo: "https://brillcrafts.com/logo.png",
+            },
+            areaServed: {
+              "@type": "Country",
+              name: "India",
+            },
+            description:
+              "Brill Crafts provides experiential marketing, retail branding, fabrication, production and activation services across India.",
+          })}
+        </script>
+      </Helmet>
+
       <div className="relative isolate overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white">
 
         <BackgroundEffects />
@@ -32,7 +124,8 @@ export function ServicesPage() {
 
             <p className="mt-6 max-w-3xl mx-auto text-lg text-[var(--obsidian)]/65">
               From live activations to retail branding and production support —
-              we design, execute and scale experiences that make brands visible, memorable and impactful.
+              we design, execute and scale experiences that make brands visible,
+              memorable and impactful.
             </p>
 
           </div>
@@ -75,6 +168,7 @@ export function ServicesPage() {
 
                         {/* SOFT TOP GLOW */}
                         <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-[var(--sky)]/15 blur-2xl opacity-70 transition-all group-hover:scale-110" />
+
                         {/* TITLE */}
                         <h3 className="relative text-xl font-bold text-[var(--obsidian)] group-hover:text-[var(--sky)] transition-colors">
                           {s.title}
@@ -88,6 +182,7 @@ export function ServicesPage() {
                         {/* CTA */}
                         <div className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[var(--sky)] to-[var(--parrot)]">
                           Explore Service
+
                           <ArrowUpRight
                             size={16}
                             className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
@@ -127,7 +222,8 @@ export function ServicesPage() {
                 </h2>
 
                 <p className="mt-6 text-[var(--obsidian)]/65 max-w-2xl mx-auto">
-                  Let’s build experiences that connect, convert and create real-world brand impact across India.
+                  Let’s build experiences that connect, convert and create
+                  real-world brand impact across India.
                 </p>
 
                 <Link
